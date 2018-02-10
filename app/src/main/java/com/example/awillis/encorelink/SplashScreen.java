@@ -5,4 +5,8 @@ package com.example.awillis.encorelink;
  */
 
 public class SplashScreen {
+
+
+
 }
+//Select if you are musician or a facility manager
