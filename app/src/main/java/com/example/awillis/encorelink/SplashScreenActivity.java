@@ -31,8 +31,8 @@ public class SplashScreenActivity extends AppCompatActivity {
       // The code in this method will be executed when the musician category is clicked on.
       @Override
       public void onClick(View view) {
-        // Create a new intent to open the {@link MusicianAuthentication}
-        Intent musicianIntent = new Intent(SplashScreenActivity.this, MusicianAuthentication.class);
+        // Create a new intent to open the {@link MusicianAuthenticationActivity}
+        Intent musicianIntent = new Intent(SplashScreenActivity.this, MusicianAuthenticationActivity.class);
 
         // Start the new activity
         startActivity(musicianIntent);
@@ -49,8 +49,8 @@ public class SplashScreenActivity extends AppCompatActivity {
       // The code in this method will be executed when the family category is clicked on.
       @Override
       public void onClick(View view) {
-        // Create a new intent to open the {@link FacilityAuthentication}
-        Intent facilityIntent = new Intent(SplashScreenActivity.this, FacilityAuthentication.class);
+        // Create a new intent to open the {@link FacilityAuthenticationActivity}
+        Intent facilityIntent = new Intent(SplashScreenActivity.this, FacilityAuthenticationActivity.class);
 
         // Start the new activity
         startActivity(facilityIntent);

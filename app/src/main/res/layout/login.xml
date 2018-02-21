@@ -4,7 +4,7 @@
     android:orientation="vertical" android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" tools:context=".MusicianAuthentication"
+    android:paddingTop="@dimen/activity_vertical_margin" tools:context=".MusicianAuthenticationActivity"
     android:background="#80fdff"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true">
