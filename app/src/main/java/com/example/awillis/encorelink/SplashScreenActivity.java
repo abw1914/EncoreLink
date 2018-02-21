@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
 
   private String mMusician;
   private String mFacility;
@@ -21,7 +21,7 @@ public class SplashScreen extends AppCompatActivity {
     super.onCreate(savedInstanceState);
 
     // Set the content of the activity to use the activity_main.xml layout file
-    setContentView(R.layout.splash);
+    setContentView(R.layout.activity_splash_screen);
 
     // Find the View that shows the musician category
     TextView mMusician = (TextView) findViewById(R.id.tv_musician);
@@ -32,7 +32,7 @@ public class SplashScreen extends AppCompatActivity {
       @Override
       public void onClick(View view) {
         // Create a new intent to open the {@link MusicianAuthentication}
-        Intent musicianIntent = new Intent(SplashScreen.this, MusicianAuthentication.class);
+        Intent musicianIntent = new Intent(SplashScreenActivity.this, MusicianAuthentication.class);
 
         // Start the new activity
         startActivity(musicianIntent);
@@ -50,7 +50,7 @@ public class SplashScreen extends AppCompatActivity {
       @Override
       public void onClick(View view) {
         // Create a new intent to open the {@link FacilityAuthentication}
-        Intent facilityIntent = new Intent(SplashScreen.this, FacilityAuthentication.class);
+        Intent facilityIntent = new Intent(SplashScreenActivity.this, FacilityAuthentication.class);
 
         // Start the new activity
         startActivity(facilityIntent);
