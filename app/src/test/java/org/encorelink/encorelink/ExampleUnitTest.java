@@ -1,4 +1,4 @@
-package com.example.awillis.encorelink;
+package org.encorelink.encorelink;
 
 import org.junit.Test;
 

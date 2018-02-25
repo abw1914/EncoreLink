@@ -1,4 +1,4 @@
-package com.example.awillis.encorelink;
+package org.encorelink.encorelink;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.awillis.encorelink", appContext.getPackageName());
+        assertEquals("org.encorelink.encorelink", appContext.getPackageName());
     }
 }
