@@ -13,7 +13,7 @@
       android:layout_height="match_parent"
       android:layout_above="@id/tv_musician"
       android:layout_margin="15dp"
-      android:src="@drawable/logo"/>
+      android:src="@drawable/encorelink_logo"/>
 
   <TextView
       android:id="@+id/tv_musician"
