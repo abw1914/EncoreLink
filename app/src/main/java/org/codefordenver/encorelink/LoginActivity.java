@@ -1,6 +1,8 @@
 package org.codefordenver.encorelink;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +19,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private static EditText emailText;
     private static EditText passwordText;
-    private static Button login_btn;
+    private static Button login_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +31,9 @@ public class LoginActivity extends AppCompatActivity {
     public void Login() {
         emailText = findViewById(R.id.input_email);
         passwordText = findViewById(R.id.input_password);
-        login_btn = findViewById(R.id.button_login);
+        login_button = findViewById(R.id.button_login);
 
-        login_btn.setOnClickListener(
+        login_button.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -41,15 +43,38 @@ public class LoginActivity extends AppCompatActivity {
                             onLoginFailed();
                             return;
                         }
-//                        if(email.getText().toString().equals("user") &&
-//                                password.getText().toString().equals("pass")) {
-//                            Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
-//                            startActivity(intent);
-//
-//                        }
+
+                        login_button.setEnabled(false);
+
+                        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                        progressDialog.setIndeterminate(true);
+                        progressDialog.setMessage("Authenticating...");
+                        progressDialog.show();
+
+                        String email = emailText.getText().toString();
+                        String password = passwordText.getText().toString();
+
+                        if (email.equals("user@email.com") && password.equals("pass")) {
+                            new Handler().postDelayed(
+                                    new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            onLoginSuccess();
+                                            progressDialog.dismiss();
+                                        }
+                                    }, 3000
+                            );
+                        }
                     }
                 }
         );
+    }
+
+    public void onLoginSuccess() {
+        login_button.setEnabled(true);
+        Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void onLoginFailed() {
