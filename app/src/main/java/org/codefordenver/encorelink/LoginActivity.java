@@ -3,6 +3,8 @@ package org.codefordenver.encorelink;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 
@@ -13,7 +15,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    private static EditText email;
+    private static EditText emailText;
     private static EditText password;
     private static Button login_btn;
 
@@ -21,11 +23,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        LoginButton();
+        Login();
     }
 
-    public void LoginButton() {
-        email = findViewById(R.id.input_email);
+    public void Login() {
+        emailText = findViewById(R.id.input_email);
         password = findViewById(R.id.input_password);
         login_btn = findViewById(R.id.button_login);
 
@@ -33,14 +35,39 @@ public class LoginActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(email.getText().toString().equals("user") &&
-                                password.getText().toString().equals("pass")) {
-                            Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
-                            startActivity(intent);
+                        Log.d(TAG, "Login");
 
+                        if (!validate()) {
+                            onLoginFailed();
+                            return;
                         }
+//                        if(email.getText().toString().equals("user") &&
+//                                password.getText().toString().equals("pass")) {
+//                            Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
+//                            startActivity(intent);
+//
+//                        }
                     }
                 }
         );
+    }
+
+    public void onLoginFailed() {
+        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG);
+    }
+
+    public boolean validate() {
+        boolean valid = true;
+        String email = emailText.getText().toString();
+
+
+        if(email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailText.setError("Enter a valid email address");
+            valid = false;
+        } else {
+            emailText.setError(null);
+        }
+
+        return valid;
     }
 }
