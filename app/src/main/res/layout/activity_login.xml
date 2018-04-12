@@ -24,6 +24,7 @@
         android:layout_height="wrap_content">
         <!-- Email Label -->
         <EditText
+            android:id="@+id/input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -41,6 +42,7 @@
         android:layout_height="wrap_content">
         <!-- Password Label -->
         <EditText
+            android:id="@+id/input_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -55,6 +57,7 @@
 
 
     <Button
+        android:id="@+id/button_login"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="10dp"
