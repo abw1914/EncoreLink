@@ -11,6 +11,13 @@ public class AvailableEvents {
 
     private List<Event> mAvailableEventList;
 
+    public static AvailableEvents get(Context context) {
+        if (sAvailableEvents == null) {
+            sAvailableEvents = new AvailableEvents(context);
+        }
+        return sAvailableEvents;
+    }
+
     private AvailableEvents(Context context)
     {
         mAvailableEventList = new ArrayList<>();
