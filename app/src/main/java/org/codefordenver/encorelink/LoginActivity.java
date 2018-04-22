@@ -65,6 +65,11 @@ public class LoginActivity extends AppCompatActivity {
                                     }, 3000
                             );
                         }
+                        else {
+                            Toast.makeText(LoginActivity.this, "Wrong email/password", Toast.LENGTH_SHORT).show();
+                            progressDialog.hide();
+                        }
+
                     }
                 }
         );
@@ -72,7 +77,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginSuccess() {
         login_button.setEnabled(true);
-        Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
+        //Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
+        Intent intent = new Intent(LoginActivity.this, AvailableEventsActivity.class);
         startActivity(intent);
         finish();
     }
