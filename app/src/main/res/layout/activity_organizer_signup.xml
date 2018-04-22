@@ -61,10 +61,36 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="10dp"
-        android:text="Create user!"
-        android:textColor="#FFFFFF"
         android:background="@color/colorPrimaryDark"
-        />
+        android:text="Create user!"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/editText3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="OR"
+        android:textIsSelectable="false"
+        android:textAllCaps="true"
+        android:textAlignment="center" />
+    <Button
+        android:id="@+id/button_organizer_google_login"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="Sign Up With Google"
+        android:textColor="#FFFFFF" />
+    <Button
+        android:id="@+id/button_organizer_facebook_login"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="Sign Up With Facebook"
+        android:textColor="#FFFFFF" />
 
 
 </LinearLayout>
