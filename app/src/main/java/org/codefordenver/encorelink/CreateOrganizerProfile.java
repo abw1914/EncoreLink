@@ -12,8 +12,6 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import javax.crypto.EncryptedPrivateKeyInfo;
-
 public class CreateOrganizerProfile extends AppCompatActivity {
 
     private static final String ORGANIZER_PROFILE = "organizer_profile";
@@ -110,13 +108,11 @@ public class CreateOrganizerProfile extends AppCompatActivity {
                 }
 
 
-
-
-
-
-                    databaseReference.child(ORGANIZER_PROFILE).child(organizerEntity.getOrganizationName()).setValue(organizerEntity);
-
+                String key = databaseReference.push().getKey();
+                databaseReference.child(ORGANIZER_PROFILE).child(key).setValue(organizerEntity);
                 Toast.makeText(CreateOrganizerProfile.this, "Saving to Database", Toast.LENGTH_SHORT).show();
+
+
 
 
 
