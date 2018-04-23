@@ -2,15 +2,13 @@ package org.codefordenver.encorelink;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
-import android.widget.EditText;
-
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
@@ -73,6 +71,15 @@ public class LoginActivity extends AppCompatActivity {
     public void onLoginSuccess() {
         login_button.setEnabled(true);
         Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
+
+        // We will need to know whether the user is a musician or organizer here.
+        // This is just hard coded for testing now. - Sepideh
+        boolean isMusician = true;
+
+        if (isMusician) {
+            intent = new Intent(LoginActivity.this, MusicianTabLayoutActivity.class);
+        }
+
         startActivity(intent);
         finish();
     }
