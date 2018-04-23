@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ViewDatabase extends AppCompatActivity {
 
@@ -19,7 +20,7 @@ public class ViewDatabase extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private ListView mListView;
 
-    private ArrayList<String> mUserNames = new ArrayList<>();
+    private ArrayList<String> mDbInfo = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,18 +30,18 @@ public class ViewDatabase extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mListView = findViewById(R.id.dbInfo);
 
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mUserNames);
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mDbInfo);
 
         mListView.setAdapter(arrayAdapter);
        mDatabase.addChildEventListener(new ChildEventListener() {
            @Override
            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-               String value = dataSnapshot.getValue(String.class);
+                for(DataSnapshot ds : dataSnapshot.getChildren())
+                {
+                    mDbInfo.add(Objects.requireNonNull(ds.getValue()).toString());
+                }
 
-
-
-               mUserNames.add(value);
                arrayAdapter.notifyDataSetChanged();
            }
 

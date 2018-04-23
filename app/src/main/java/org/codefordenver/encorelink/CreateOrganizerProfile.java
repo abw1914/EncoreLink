@@ -114,7 +114,7 @@ public class CreateOrganizerProfile extends AppCompatActivity {
 
 
 
-                    databaseReference.child(ORGANIZER_PROFILE).push().setValue(organizerEntity);
+                    databaseReference.child(ORGANIZER_PROFILE).child(organizerEntity.getOrganizationName()).setValue(organizerEntity);
 
                 Toast.makeText(CreateOrganizerProfile.this, "Saving to Database", Toast.LENGTH_SHORT).show();
 

@@ -100,16 +100,15 @@ public class OrganizerEntity {
 
     @Override
     public String toString() {
-        return "OrganizerEntity{" +
-                "organizationName='" + organizationName + '\'' +
-                ", streetAddress='" + streetAddress + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zipcode='" + zipcode + '\'' +
-                ", contactName='" + contactName + '\'' +
-                ", contactJobTitle='" + contactJobTitle + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                '}';
+        return
+                "Organization Name: " + organizationName + "\n" +
+                "Street Address: " + streetAddress + '\n' +
+                "City: " + city + '\n' +
+                "State: " + state + '\n' +
+                "Zipcode:" + zipcode + '\n' +
+                "Contact Name: " + contactName + '\n' +
+                "Contact Job Title: " + contactJobTitle + '\n' +
+                "Phone Number: " + phoneNumber + '\n' +
+                "Email Address: " + emailAddress + '\n';
     }
 }
