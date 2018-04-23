@@ -77,7 +77,6 @@ public class OrganizerSignup extends AppCompatActivity {
                             }
                         });
 
-
             }
 
 
