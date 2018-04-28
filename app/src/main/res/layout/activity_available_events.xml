@@ -4,33 +4,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date"
-            />
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:text="@string/musician_activity_date"
+            style="@style/AvailableEventsHeader" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time"/>
+            android:layout_centerHorizontal="true"
+            android:text="@string/musician_activity_time"
+            style="@style/AvailableEventsHeader"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Location"/>
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/musician_activity_location"
+            style="@style/AvailableEventsHeader"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/available_events_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="48dp">
 
     </android.support.v7.widget.RecyclerView>
 

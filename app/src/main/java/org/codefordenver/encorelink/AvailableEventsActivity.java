@@ -10,6 +10,7 @@ import java.util.List;
 
 public class AvailableEventsActivity extends AppCompatActivity{
 
+    private final String TITLE = "Musician Available Events";
     private RecyclerView mAvailableEventsRecyclerView;
     private AvailableEventsAdapter mAdapter;
 
@@ -28,6 +29,8 @@ public class AvailableEventsActivity extends AppCompatActivity{
 
         mAdapter = new AvailableEventsAdapter(eventList);
         mAvailableEventsRecyclerView.setAdapter(mAdapter);
+
+        setTitle(TITLE);
 
     }
 }

@@ -51,14 +51,13 @@ public class AvailableEventsAdapter extends RecyclerView.Adapter<AvailableEvents
         }
 
         void bind (Event event) {
-            String date = event.getDate().getMonth().toString() + "\\"
-                            + event.getDate().getDayOfMonth() + "\\"
+            String date = event.getDate().getMonth().toString() + " "
+                            + event.getDate().getDayOfMonth() + " "
                             + event.getDate().getYear();
             listItemDate.setText(date);
 
             String time = Integer.toString(event.getDate().getHour()) + ":"
-                            + Integer.toString(event.getDate().getMinute())
-                            + event.getDate();
+                            + Integer.toString(event.getDate().getMinute());
 
             listItemTime.setText(time);
 

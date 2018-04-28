@@ -18,7 +18,9 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainScreenActivity"></activity>
-        <activity android:name=".AvailableEventsActivity"></activity>
+        <activity android:name=".AvailableEventsActivity">
+            android:parentActivityName=".MainActivity"
+        </activity>
     </application>
 
 </manifest>
