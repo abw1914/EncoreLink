@@ -53,7 +53,9 @@ public class LoginActivity extends AppCompatActivity {
 
                         String email = emailText.getText().toString();
                         String password = passwordText.getText().toString();
-
+                        /**
+                         * TODO - Add api authentication here
+                         */
                         if (email.equals("user@email.com") && password.equals("pass")) {
                             new Handler().postDelayed(
                                     new Runnable() {
