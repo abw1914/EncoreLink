@@ -17,7 +17,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".MainScreenActivity"></activity>
+        <activity android:name=".CreateOrganizerProfile" />
+        <activity android:name=".ViewDatabase" />
+        <activity android:name=".MainScreenActivity" />
+        <activity android:name=".OrganizerSignup"></activity>
     </application>
 
 </manifest>
