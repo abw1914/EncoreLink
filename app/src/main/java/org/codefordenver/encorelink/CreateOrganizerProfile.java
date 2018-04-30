@@ -42,6 +42,7 @@ public class CreateOrganizerProfile extends AppCompatActivity {
 
         setContentView(R.layout.activity_organizer_profile);
 
+        //initialize FirebaseDatabase object
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         organizationName = findViewById(R.id.organizationName);
