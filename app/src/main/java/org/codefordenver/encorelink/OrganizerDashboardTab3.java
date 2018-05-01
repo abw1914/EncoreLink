@@ -8,6 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
+/**
+ * This is an empty activity for now.
+ */
 public class OrganizerDashboardTab3 extends Fragment {
 
     @Nullable

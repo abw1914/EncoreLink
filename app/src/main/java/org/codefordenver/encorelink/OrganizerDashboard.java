@@ -17,7 +17,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+
+/**
+ * This class is a multi tab view and includes a menu. Still working on the edit profile
+ * portion, but signout works.
+ */
 public class OrganizerDashboard extends AppCompatActivity {
 
     /**
@@ -31,6 +39,7 @@ public class OrganizerDashboard extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private MenuItem editProfile;
+    private MenuItem signOut;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -44,6 +53,7 @@ public class OrganizerDashboard extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         editProfile = findViewById(R.id.editProfile);
+        signOut = findViewById(R.id.organizerSignOut);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -59,6 +69,14 @@ public class OrganizerDashboard extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+
+
+
+
+
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,8 +105,15 @@ public class OrganizerDashboard extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.editProfile) {
 
-            Intent organzierEditProfile = new Intent(OrganizerDashboard.this, ViewDatabase.class);
+            Intent organzierEditProfile = new Intent(OrganizerDashboard.this, EditOrganizerProfile.class);
             startActivity(organzierEditProfile);
+        }
+
+        if(id == R.id.organizerSignOut) {
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(this, "Signing out...", Toast.LENGTH_SHORT).show();
+           Intent goHome = new Intent(OrganizerDashboard.this, LoginActivity.class);
+           startActivity(goHome);
         }
 
         return super.onOptionsItemSelected(item);

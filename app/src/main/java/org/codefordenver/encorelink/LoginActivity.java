@@ -15,7 +15,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -118,7 +117,12 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+        if(mAuth.getCurrentUser() != null) {
+            finish();
+            startActivity(new Intent(this, OrganizerDashboard.class));
+        }
+
     }
 }
 
