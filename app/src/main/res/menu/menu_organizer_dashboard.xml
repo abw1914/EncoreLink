@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="org.codefordenver.encorelink.OrganizerDashboard">
+    <item
+        android:id="@+id/editProfile"
+        android:orderInCategory="100"
+        android:title="@string/editProfile"
+        app:showAsAction="never" />
+</menu>

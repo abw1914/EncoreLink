@@ -111,6 +111,8 @@ public class CreateOrganizerProfile extends AppCompatActivity {
                 String key = databaseReference.push().getKey();
                 databaseReference.child(ORGANIZER_PROFILE).child(key).setValue(organizerEntity);
                 Toast.makeText(CreateOrganizerProfile.this, "Saving to Database", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CreateOrganizerProfile.this, OrganizerDashboard.class);
+                startActivity(intent);
 
 
 

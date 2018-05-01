@@ -20,7 +20,11 @@
         <activity android:name=".CreateOrganizerProfile" />
         <activity android:name=".ViewDatabase" />
         <activity android:name=".MainScreenActivity" />
-        <activity android:name=".OrganizerSignup"></activity>
+        <activity android:name=".OrganizerSignup" />
+        <activity
+            android:name=".OrganizerDashboard"
+            android:label="@string/title_activity_organizer_dashboard"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
