@@ -2,9 +2,9 @@ package org.codefordenver.encorelink;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +22,9 @@ public class OrganizerSignup extends AppCompatActivity {
     private Button orgSignup;
     private TextView organizerEmail;
     private TextView organizerPassword;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +34,8 @@ public class OrganizerSignup extends AppCompatActivity {
         organizerPassword = findViewById(R.id.input_organizer_password);
         orgSignup = findViewById(R.id.button_organizer_login);
         mAuth = FirebaseAuth.getInstance();
+
+
 
         orgSignup.setOnClickListener(new View.OnClickListener() {
 
@@ -64,11 +69,12 @@ public class OrganizerSignup extends AppCompatActivity {
                         new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(OrganizerSignup.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(OrganizerSignup.this, "Creating new user..." + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                                 progressDialog.hide();
 
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(OrganizerSignup.this, "Authentication failed." + task.getException(), Toast.LENGTH_SHORT).show();
+
                                 } else {
                                     startActivity(new Intent(OrganizerSignup.this
                                             , CreateOrganizerProfile.class));

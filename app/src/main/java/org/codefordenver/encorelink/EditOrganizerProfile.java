@@ -8,87 +8,84 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 public class EditOrganizerProfile extends AppCompatActivity {
 
 
 ListView editOrganizerProfileListView;
-ArrayAdapter<String> adapter;
+    private String userId;
+    private ArrayList<String> userInfo = new ArrayList<>();
 
-DatabaseReference databaseReference;
-FirebaseUser firebaseUser;
-UserInfo userInfo;
 
-List<String> itemlist;
 
-String userId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_organizer_profile);
-
         editOrganizerProfileListView = findViewById(R.id.editOrganizerProfileView);
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        userId = userInfo.getUid();
-        itemlist = new ArrayList<>();
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
+            userId = user.getUid();
+        }
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId);
+
+        final ArrayAdapter<String>arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, userInfo);
+        editOrganizerProfileListView.setAdapter(arrayAdapter);
 
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+       mDatabase.addChildEventListener(new ChildEventListener() {
+           @Override
+           public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+               for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                   userInfo.add(Objects.requireNonNull(dataSnapshot1.getValue()).toString());
+               }
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                itemlist.clear();
+               arrayAdapter.notifyDataSetChanged();
+           }
 
+           @Override
+           public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
+           }
 
+           @Override
+           public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                String organizationName = dataSnapshot.child(userId).child("organizationName").getValue(String.class);
-//                String streetAddress = dataSnapshot.child(userId).child("streetAddress").getValue(String.class);
-//                String city = dataSnapshot.child(userId).child("city").getValue(String.class);
-//                String zipCode = dataSnapshot.child(userId).child("zipCode").getValue(String.class);
-//                String contactName = dataSnapshot.child(userId).child("contactName").getValue(String.class);
-//                String contactJobTitle = dataSnapshot.child(userId).child("contactJobTitle").getValue(String.class);
-//                String phoneNumber = dataSnapshot.child(userId).child("phoneNumber").getValue(String.class);
-//                String email = dataSnapshot.child(userId).child("emailAddress").getValue(String.class);
-//                String state = dataSnapshot.child(userId).child("state").getValue(String.class);
+           }
 
-                itemlist.add(organizationName);
-//                itemlist.add(streetAddress);
-//                itemlist.add(city);
-//                itemlist.add(zipCode);
-//                itemlist.add(contactName);
-//                itemlist.add(contactJobTitle);
-//                itemlist.add(phoneNumber);
-//                itemlist.add(email);
-//                itemlist.add(state);
+           @Override
+           public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-                adapter = new ArrayAdapter<>(EditOrganizerProfile.this, android.R.layout.simple_list_item_1, itemlist);
-                editOrganizerProfileListView.setAdapter(adapter);
-            }
+           }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+           @Override
+           public void onCancelled(DatabaseError databaseError) {
 
-                Toast.makeText(EditOrganizerProfile.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
-
-            }
-        });
+           }
+       });
 
 
 
 
 
+        if (user == null) {
 
-    }
+            Toast.makeText(this, "No user found!", Toast.LENGTH_SHORT).show();
+        }
+
+
+     }
 }
