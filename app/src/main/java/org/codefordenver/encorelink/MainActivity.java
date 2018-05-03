@@ -1,8 +1,9 @@
 package org.codefordenver.encorelink;
 
-import android.content.Intent;
+// import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -11,7 +12,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Intent intent = new Intent(this, LoginActivity.class);
+        // startActivity(intent);
     }
 }
