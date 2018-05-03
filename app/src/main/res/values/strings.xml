@@ -14,4 +14,8 @@
     <string name="editProfile">Edit Profile</string>
     <string name="sign_out">Sign Out</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="first_name">First Name*:</string>
+    <string name="last_name">Last Name*:</string>
+    <string name="phone_number">Phone Number*:</string>
+    <string name="video_audio_link">Video/Audio Link:</string>
 </resources>
