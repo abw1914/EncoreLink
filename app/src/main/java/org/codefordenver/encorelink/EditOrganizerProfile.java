@@ -34,16 +34,18 @@ ListView editOrganizerProfileListView;
         setContentView(R.layout.activity_edit_organizer_profile);
         editOrganizerProfileListView = findViewById(R.id.editOrganizerProfileView);
 
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        if (user != null) {
-            userId = user.getUid();
-        }
-
+//        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//        FirebaseUser user = firebaseAuth.getCurrentUser();
+//        if (user != null) {
+//            userId = user.getUid();
+//        }
+        userId = FirebaseAppOnStartConfiguration.userId;
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId);
 
         final ArrayAdapter<String>arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, userInfo);
         editOrganizerProfileListView.setAdapter(arrayAdapter);
+
+
 
 
        mDatabase.addChildEventListener(new ChildEventListener() {
@@ -81,7 +83,7 @@ ListView editOrganizerProfileListView;
 
 
 
-        if (user == null) {
+        if (userId == null) {
 
             Toast.makeText(this, "No user found!", Toast.LENGTH_SHORT).show();
         }

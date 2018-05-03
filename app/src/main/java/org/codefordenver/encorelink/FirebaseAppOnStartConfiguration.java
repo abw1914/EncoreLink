@@ -1,8 +1,16 @@
 package org.codefordenver.encorelink;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class FirebaseAppOnStartConfiguration extends android.app.Application {
+
+    private FirebaseAuth firebaseAuth;
+    public static String userId;
+    private DatabaseReference databaseReference;
+
 
 
     /**
@@ -18,5 +26,15 @@ public class FirebaseAppOnStartConfiguration extends android.app.Application {
         super.onCreate();
 
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
+            userId = user.getUid();
+        }
+
+
     }
 }
