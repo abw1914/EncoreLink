@@ -16,19 +16,20 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class OrganizerSignup extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private Button orgSignup;
     private TextView organizerEmail;
     private TextView organizerPassword;
+    public static String userType;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_organizer_signup);
+        setContentView(R.layout.activity_signup);
 
         organizerEmail = findViewById(R.id.input_organizer_email);
         organizerPassword = findViewById(R.id.input_organizer_password);
@@ -60,23 +61,23 @@ public class OrganizerSignup extends AppCompatActivity {
                     return;
                 }
 
-                final ProgressDialog progressDialog = new ProgressDialog(OrganizerSignup.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
                 progressDialog.setIndeterminate(true);
                 progressDialog.setMessage("Authenticating...");
                 progressDialog.show();
 
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(OrganizerSignup.this,
+                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignupActivity.this,
                         new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(OrganizerSignup.this, "Creating new user..." + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignupActivity.this, "Creating new user..." + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                                 progressDialog.hide();
 
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(OrganizerSignup.this, "Authentication failed." + task.getException(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(), Toast.LENGTH_SHORT).show();
 
                                 } else {
-                                    startActivity(new Intent(OrganizerSignup.this
+                                    startActivity(new Intent(SignupActivity.this
                                             , CreateOrganizerProfile.class));
                                     finish();
                                 }
@@ -87,5 +88,18 @@ public class OrganizerSignup extends AppCompatActivity {
 
 
         });
+
+    }
+
+    public void onSwitchClicked(View view) {
+        boolean on = view.isPressed();
+
+        if (on) {
+            Toast.makeText(this, "Signing up as a Musician", Toast.LENGTH_SHORT).show();
+            userType = "musician";
+
+        } else {
+            userType = "organizer";
+        }
     }
 }

@@ -65,14 +65,14 @@
         android:textColor="#FFFFFF"
         android:background="@color/colorPrimaryDark"
         />
+
     <Button
         android:id="@+id/organizer_signup"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="10dp"
-        android:text="Organizer Signup"
-        android:textColor="#FFFFFF"
         android:background="@color/colorPrimaryDark"
-        />
+        android:text="Signup"
+        android:textColor="#FFFFFF" />
 
 </LinearLayout>

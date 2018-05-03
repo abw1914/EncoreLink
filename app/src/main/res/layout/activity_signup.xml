@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OrganizerSignup"
+    tools:context=".SignupActivity"
     android:orientation="vertical">
 
 
@@ -18,23 +18,19 @@
         android:scaleType="centerCrop"
         android:src="@drawable/encorelink_logo" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/username_input_organizer_layout"
+    <Switch
+        android:id="@+id/user_type_switch"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <!-- Email Label -->
-        <EditText
-            android:id="@+id/input_organizer_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="10dp"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            android:hint="@string/email"
-            />
-    </android.support.design.widget.TextInputLayout>
+        android:layout_height="wrap_content"
+        android:onClick="onSwitchClicked"
+        android:textOn="Musician"
+        android:textOff="Organzer"
+        android:showText="true"
+        android:splitTrack="true"
+        android:thumbTint="@color/common_google_signin_btn_text_light_disabled"
+        android:switchTextAppearance="@style/Base.TextAppearance.AppCompat"
+
+        />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/password_input_organizer_layout"
@@ -56,6 +52,23 @@
     </android.support.design.widget.TextInputLayout>
 
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/username_input_organizer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!-- Email Label -->
+        <EditText
+            android:id="@+id/input_organizer_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
+    </android.support.design.widget.TextInputLayout>
+
     <Button
         android:id="@+id/button_organizer_login"
         android:layout_width="match_parent"
@@ -75,6 +88,7 @@
         android:textIsSelectable="false"
         android:textAllCaps="true"
         android:textAlignment="center" />
+
     <Button
         android:id="@+id/button_organizer_google_login"
         android:layout_width="match_parent"

@@ -46,8 +46,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-        //Get Firebase auth instance
-        mAuth = FirebaseAuth.getInstance();
+
 
 //        if (mAuth.getCurrentUser() != null) {
 //            startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -108,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
         organizer_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, OrganizerSignup.class);
+                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
                 startActivity(intent);
             }
         });
