@@ -90,7 +90,12 @@ public class SignupActivity extends AppCompatActivity {
         });
 
     }
-
+    /**
+     * This is the switch so the user can choose which type of user they need to sign up as.
+     * the userType will keep track of the type of user so when they create their profile it will
+     * eventually get put into the correct database node.
+     * @param view
+     */
     public void onSwitchClicked(View view) {
         boolean on = view.isPressed();
 
