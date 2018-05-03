@@ -26,11 +26,9 @@ public class CreateOrganizerProfile extends AppCompatActivity {
     private EditText phoneNumber;
     private EditText emailAddress;
     private EditText state;
-    private int ORG_NUM = 0;
-    public static String key;
 
     private FirebaseAuth firebaseAuth;
-    private String userId;
+    public static String userId;
 
 
 

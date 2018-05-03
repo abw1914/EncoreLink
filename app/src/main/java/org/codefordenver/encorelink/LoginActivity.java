@@ -3,6 +3,7 @@ package org.codefordenver.encorelink;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -15,18 +16,24 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    private static EditText emailText;
-    private static EditText passwordText;
-    private static Button login_button;
+    private EditText emailText;
+    private EditText passwordText;
+    private Button login_button;
     private Button organizer_signup;
     private FirebaseAuth mAuth;
-
-
+    private DatabaseReference mDataBase;
+    private String userId;
 
 
 
@@ -95,9 +102,52 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_LONG).show();
                                     }
                                 } else {
-                                    Intent intent = new Intent(LoginActivity.this, CreateOrganizerProfile.class);
-                                    startActivity(intent);
-                                    finish();
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    if (user != null) {
+                                        userId = user.getUid();
+                                    }
+
+
+                                    mDataBase = FirebaseDatabase.getInstance().getReference();
+                                    mDataBase.addChildEventListener(new ChildEventListener() {
+                                        @Override
+                                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                            for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                                                if(dataSnapshot.getKey().equals(CreateMusicianProfile.MUSICIAN_PROFILE) && ds.getKey().equals(userId)) {
+                                                    startActivity(new Intent(LoginActivity.this, test.class));
+                                                    finish();
+                                                    break;
+                                                }
+
+                                                if(dataSnapshot.getKey().equals(CreateOrganizerProfile.ORGANIZER_PROFILE) && ds.getKey().equals(userId)) {
+                                                    startActivity(new Intent(LoginActivity.this, OrganizerDashboard.class));
+                                                    finish();
+                                                    break;
+                                                }
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                        }
+
+                                        @Override
+                                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                        }
+
+                                        @Override
+                                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
                                 }
                             }
                         });
@@ -117,9 +167,54 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        //if user is already logged in, go to the appropriate dashboard.
         if(mAuth.getCurrentUser() != null) {
             finish();
-            startActivity(new Intent(this, OrganizerDashboard.class));
+
+            userId = FirebaseAppOnStartConfiguration.userId;
+
+
+            mDataBase = FirebaseDatabase.getInstance().getReference();
+            mDataBase.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                        if(dataSnapshot.getKey().equals(CreateMusicianProfile.MUSICIAN_PROFILE) && ds.getKey().equals(userId)) {
+                                startActivity(new Intent(LoginActivity.this, test.class));
+                                finish();
+                                break;
+                        }
+
+                        if(dataSnapshot.getKey().equals(CreateOrganizerProfile.ORGANIZER_PROFILE) && ds.getKey().equals(userId)) {
+                            startActivity(new Intent(LoginActivity.this, OrganizerDashboard.class));
+                            finish();
+                            break;
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
         }
 
     }

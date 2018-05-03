@@ -22,8 +22,11 @@ public class SignupActivity extends AppCompatActivity {
     private Button orgSignup;
     private TextView organizerEmail;
     private TextView organizerPassword;
-    public static String userType;
+    public static final String ORGANIZER = "organizer";
+    public static final String MUSICIAN = "musician";
 
+    //keep track of the type of user.
+    public static String userType = ORGANIZER;
 
 
     @Override
@@ -35,7 +38,6 @@ public class SignupActivity extends AppCompatActivity {
         organizerPassword = findViewById(R.id.input_organizer_password);
         orgSignup = findViewById(R.id.button_organizer_login);
         mAuth = FirebaseAuth.getInstance();
-
 
 
         orgSignup.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +78,10 @@ public class SignupActivity extends AppCompatActivity {
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(), Toast.LENGTH_SHORT).show();
 
+                                }
+                                if (userType.equals(MUSICIAN)) {
+                                    startActivity(new Intent(SignupActivity.this, CreateMusicianProfile.class));
+                                    finish();
                                 } else {
                                     startActivity(new Intent(SignupActivity.this
                                             , CreateOrganizerProfile.class));
@@ -90,10 +96,12 @@ public class SignupActivity extends AppCompatActivity {
         });
 
     }
+
     /**
      * This is the switch so the user can choose which type of user they need to sign up as.
      * the userType will keep track of the type of user so when they create their profile it will
      * eventually get put into the correct database node.
+     *
      * @param view
      */
     public void onSwitchClicked(View view) {
@@ -101,10 +109,9 @@ public class SignupActivity extends AppCompatActivity {
 
         if (on) {
             Toast.makeText(this, "Signing up as a Musician", Toast.LENGTH_SHORT).show();
-            userType = "musician";
+            userType = MUSICIAN;
 
-        } else {
-            userType = "organizer";
+
         }
     }
 }
