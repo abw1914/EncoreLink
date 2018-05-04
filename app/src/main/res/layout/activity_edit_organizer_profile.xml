@@ -7,15 +7,15 @@
     tools:context=".EditOrganizerProfile">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="218dp"
+        android:layout_height="79dp"
         android:text="@string/edit_profile" />
 
 
     <ListView
         android:id="@+id/editOrganizerProfileView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="698dp"
         android:layout_column="0"
         android:layout_row="1" />
 

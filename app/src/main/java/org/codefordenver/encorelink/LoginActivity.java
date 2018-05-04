@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordText = findViewById(R.id.input_password);
         login_button = findViewById(R.id.button_login);
         organizer_signup = findViewById(R.id.organizer_signup);
-        mAuth = FirebaseAuth.getInstance();
+
 
 
 
@@ -101,7 +101,9 @@ public class LoginActivity extends AppCompatActivity {
                                     } else {
                                         Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_LONG).show();
                                     }
-                                } else {
+                                }
+
+                                if (task.isSuccessful()){
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     if (user != null) {
                                         userId = user.getUid();
@@ -169,7 +171,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //if user is already logged in, go to the appropriate dashboard.
         if(mAuth.getCurrentUser() != null) {
-            finish();
+
 
             userId = FirebaseAppOnStartConfiguration.userId;
 

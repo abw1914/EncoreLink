@@ -1,5 +1,6 @@
 package org.codefordenver.encorelink;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
@@ -13,6 +14,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -20,13 +22,12 @@ import java.util.Objects;
 public class EditOrganizerProfile extends AppCompatActivity {
 
 
-ListView editOrganizerProfileListView;
-    private String userId;
+    private ListView editOrganizerProfileListView;
+
     private ArrayList<String> userInfo = new ArrayList<>();
-
-
-
-
+    private DatabaseReference mDataBase;
+    private FirebaseAuth mAuth;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,52 +35,53 @@ ListView editOrganizerProfileListView;
         setContentView(R.layout.activity_edit_organizer_profile);
         editOrganizerProfileListView = findViewById(R.id.editOrganizerProfileView);
 
-//        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-//        FirebaseUser user = firebaseAuth.getCurrentUser();
-//        if (user != null) {
-//            userId = user.getUid();
-//        }
-        userId = FirebaseAppOnStartConfiguration.userId;
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId);
 
-        final ArrayAdapter<String>arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, userInfo);
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, userInfo);
         editOrganizerProfileListView.setAdapter(arrayAdapter);
 
+        mAuth = FirebaseAuth.getInstance();
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            userId = user.getUid();
+        }
 
 
-
-       mDatabase.addChildEventListener(new ChildEventListener() {
-           @Override
-           public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-               for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                   userInfo.add(Objects.requireNonNull(dataSnapshot1.getValue()).toString());
-               }
-
-               arrayAdapter.notifyDataSetChanged();
-           }
-
-           @Override
-           public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-           }
-
-           @Override
-           public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-           }
-
-           @Override
-           public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-           }
-
-           @Override
-           public void onCancelled(DatabaseError databaseError) {
-
-           }
-       });
+        mDataBase = FirebaseDatabase.getInstance().getReference().child("organizer_profile");
 
 
+        mDataBase.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    userInfo.add(Objects.requireNonNull(ds.getValue()).toString());
+                    arrayAdapter.notifyDataSetChanged();
+                    }
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
 
@@ -89,5 +91,5 @@ ListView editOrganizerProfileListView;
         }
 
 
-     }
+    }
 }
