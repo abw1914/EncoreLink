@@ -107,7 +107,7 @@ public class OrganizerDashboard extends AppCompatActivity {
 
             Intent organzierEditProfile = new Intent(OrganizerDashboard.this, EditOrganizerProfile.class);
             startActivity(organzierEditProfile);
-            finish();
+
         }
 
         if(id == R.id.organizerSignOut) {

@@ -26,7 +26,8 @@
             android:name=".OrganizerDashboard"
             android:label="@string/title_activity_organizer_dashboard"
             android:theme="@style/AppTheme" />
-        <activity android:name=".EditOrganizerProfile" />
+        <activity android:name=".EditOrganizerProfile"
+            android:theme="@style/AppTheme.SlidrActivityTheme"/>
         <activity android:name=".CreateMusicianProfile" />
         <activity android:name=".test"></activity>
     </application>

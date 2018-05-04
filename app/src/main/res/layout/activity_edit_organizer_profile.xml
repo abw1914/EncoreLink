@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditOrganizerProfile">
+    android:background="@color/snow"
+    tools:context=".EditOrganizerProfile"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -16,8 +18,7 @@
         android:id="@+id/editOrganizerProfileView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_column="0"
-        android:layout_row="1" />
+         />
 
 
-</GridLayout>
+</LinearLayout>
