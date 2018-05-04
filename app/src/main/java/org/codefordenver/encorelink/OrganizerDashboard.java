@@ -107,6 +107,7 @@ public class OrganizerDashboard extends AppCompatActivity {
 
             Intent organzierEditProfile = new Intent(OrganizerDashboard.this, EditOrganizerProfile.class);
             startActivity(organzierEditProfile);
+            finish();
         }
 
         if(id == R.id.organizerSignOut) {
@@ -114,6 +115,7 @@ public class OrganizerDashboard extends AppCompatActivity {
             Toast.makeText(this, "Signing out...", Toast.LENGTH_SHORT).show();
            Intent goHome = new Intent(OrganizerDashboard.this, LoginActivity.class);
            startActivity(goHome);
+           finish();
         }
 
         return super.onOptionsItemSelected(item);

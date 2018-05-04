@@ -105,14 +105,13 @@ public class SignupActivity extends AppCompatActivity {
      * @param view
      */
     public void onSwitchClicked(View view) {
-        boolean on = view.isClickable();
-
+        boolean on = view.isPressed();
 
         if (on) {
             Toast.makeText(this, "Signing up as a Musician", Toast.LENGTH_SHORT).show();
             userType = MUSICIAN;
-        } if (!on) {
-            Toast.makeText(this, "Signing up as an Organizer", Toast.LENGTH_SHORT).show();
+
+
         }
     }
 }
