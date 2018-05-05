@@ -13,8 +13,6 @@
         android:id="@+id/encore_logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:paddingTop="56dp"
         android:scaleType="centerCrop"
         android:src="@drawable/encorelink_logo" />
 
