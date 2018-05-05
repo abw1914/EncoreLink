@@ -1,9 +1,8 @@
 package org.codefordenver.encorelink;
 
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,10 +14,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.net.Uri;
 
-import android.widget.TextView;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements LoginFragment.OnFragmentInteractionListener, SignUpFragment.OnFragmentInteractionListener
+{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private static final String TAG = "MainActivity";
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -53,8 +54,11 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-    }
+        tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.getTabAt(0).setText(R.string.login_tab_text);
+        tabLayout.getTabAt(1).setText(R.string.sign_up_tab_text);
 
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -91,17 +100,6 @@ public class MainActivity extends AppCompatActivity {
         public PlaceholderFragment() {
         }
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -123,10 +121,18 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
+            Log.i(TAG, "position" + position);
             // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch (position) {
+                case 0:
+                    return LoginFragment.newInstance(position + 1, "Log In");
+                case 1:
+                    return SignUpFragment.newInstance(position + 1, "Sign Up");
+                default:
+                    return null;
+            }
         }
+
 
         @Override
         public int getCount() {
