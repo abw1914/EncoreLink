@@ -54,10 +54,24 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="10dp"
+<<<<<<< HEAD:app/src/main/res/layout/fragment_login.xml
         android:text="@string/login_button"
+        android:textColor="#FFFFFF"
+=======
+        android:text="Login"
         android:textColor="#FFFFFF"
         android:background="@color/colorPrimaryDark"
         />
+
+    <Button
+        android:id="@+id/organizer_signup"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+>>>>>>> feature/2.1_Musician_Profile_Activity:app/src/main/res/layout/activity_login.xml
+        android:background="@color/colorPrimaryDark"
+        android:text="Signup"
+        android:textColor="#FFFFFF" />
 
     <TextView android:id="@+id/link_signup"
         android:layout_width="fill_parent"

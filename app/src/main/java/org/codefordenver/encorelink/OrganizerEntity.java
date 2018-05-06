@@ -6,7 +6,7 @@ package org.codefordenver.encorelink;
 
 public class OrganizerEntity {
 
-    private int id;
+    private String userId;
     private String organizationName;
     private String streetAddress;
     private String city;
@@ -18,12 +18,13 @@ public class OrganizerEntity {
     private String emailAddress;
 
 
-    public int getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        userId = CreateOrganizerProfile.userId;
+        this.userId = userId;
     }
 
     public void setOrganizationName(String organizationName) {

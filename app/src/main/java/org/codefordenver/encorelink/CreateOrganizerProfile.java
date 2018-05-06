@@ -9,12 +9,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class CreateOrganizerProfile extends AppCompatActivity {
 
-    private static final String ORGANIZER_PROFILE = "organizer_profile";
+    public static final String ORGANIZER_PROFILE = "organizer_profile";
     private EditText organizationName;
     private EditText streetAddress;
     private EditText city;
@@ -24,7 +26,12 @@ public class CreateOrganizerProfile extends AppCompatActivity {
     private EditText phoneNumber;
     private EditText emailAddress;
     private EditText state;
-    private int ORG_NUM = 0;
+
+    private FirebaseAuth firebaseAuth;
+    public static String userId;
+
+
+
 
     private Button btnViewDatabase;
 
@@ -43,6 +50,12 @@ public class CreateOrganizerProfile extends AppCompatActivity {
         setContentView(R.layout.activity_organizer_profile);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
+            userId = user.getUid();
+        }
 
         organizationName = findViewById(R.id.organizationName);
 
@@ -108,9 +121,13 @@ public class CreateOrganizerProfile extends AppCompatActivity {
                 }
 
 
-                String key = databaseReference.push().getKey();
-                databaseReference.child(ORGANIZER_PROFILE).child(key).setValue(organizerEntity);
+//                key = databaseReference.child("organizer_profile").push().getKey();
+
+                databaseReference.child(ORGANIZER_PROFILE).child(userId).setValue(organizerEntity);
+
                 Toast.makeText(CreateOrganizerProfile.this, "Saving to Database", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CreateOrganizerProfile.this, OrganizerDashboard.class);
+                startActivity(intent);
 
 
 

@@ -2,9 +2,9 @@ package org.codefordenver.encorelink;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -16,21 +16,29 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class OrganizerSignup extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private Button orgSignup;
     private TextView organizerEmail;
     private TextView organizerPassword;
+    public static final String ORGANIZER = "organizer";
+    public static final String MUSICIAN = "musician";
+
+    //keep track of the type of user.
+    public static String userType = ORGANIZER;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_organizer_signup);
+        setContentView(R.layout.activity_signup);
 
         organizerEmail = findViewById(R.id.input_organizer_email);
         organizerPassword = findViewById(R.id.input_organizer_password);
         orgSignup = findViewById(R.id.button_organizer_login);
         mAuth = FirebaseAuth.getInstance();
+
 
         orgSignup.setOnClickListener(new View.OnClickListener() {
 
@@ -55,22 +63,27 @@ public class OrganizerSignup extends AppCompatActivity {
                     return;
                 }
 
-                final ProgressDialog progressDialog = new ProgressDialog(OrganizerSignup.this, R.style.Theme_AppCompat_DayNight_Dialog);
+                final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
                 progressDialog.setIndeterminate(true);
                 progressDialog.setMessage("Authenticating...");
                 progressDialog.show();
 
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(OrganizerSignup.this,
+                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignupActivity.this,
                         new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(OrganizerSignup.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignupActivity.this, "Creating new user..." + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                                 progressDialog.hide();
 
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(OrganizerSignup.this, "Authentication failed." + task.getException(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(), Toast.LENGTH_SHORT).show();
+
+                                }
+                                if (userType.equals(MUSICIAN)) {
+                                    startActivity(new Intent(SignupActivity.this, CreateMusicianProfile.class));
+                                    finish();
                                 } else {
-                                    startActivity(new Intent(OrganizerSignup.this
+                                    startActivity(new Intent(SignupActivity.this
                                             , CreateOrganizerProfile.class));
                                     finish();
                                 }
@@ -81,5 +94,24 @@ public class OrganizerSignup extends AppCompatActivity {
 
 
         });
+
+    }
+
+    /**
+     * This is the switch so the user can choose which type of user they need to sign up as.
+     * the userType will keep track of the type of user so when they create their profile it will
+     * eventually get put into the correct database node.
+     *
+     * @param view
+     */
+    public void onSwitchClicked(View view) {
+        boolean on = view.isPressed();
+
+        if (on) {
+            Toast.makeText(this, "Signing up as a Musician", Toast.LENGTH_SHORT).show();
+            userType = MUSICIAN;
+
+
+        }
     }
 }
