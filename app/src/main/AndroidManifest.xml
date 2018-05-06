@@ -21,7 +21,6 @@
         <activity android:name=".CreateOrganizerProfile" />
         <activity android:name=".ViewDatabase" />
         <activity android:name=".MainScreenActivity" />
-        <activity android:name=".OrganizerSignup" />
     </application>
 
 </manifest>

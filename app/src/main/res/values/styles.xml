@@ -18,15 +18,13 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-<<<<<<< HEAD
     <style name="MaterialSwitchTheme" parent="Theme.AppCompat.Light">
         <item name="colorControlActivated">@color/colorPrimaryDark</item>
-=======
+    </style>
+
     <style name="AppTheme.SlidrActivityTheme">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
-
->>>>>>> feature/2.1_Musician_Profile_Activity
     </style>
 
 </resources>
