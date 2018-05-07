@@ -22,7 +22,6 @@
         android:id="@+id/user_type_switch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onSwitchClicked"
         android:textOn="Musician"
         android:textOff="Organzer"
         android:showText="true"

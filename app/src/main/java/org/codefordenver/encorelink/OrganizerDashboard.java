@@ -113,7 +113,7 @@ public class OrganizerDashboard extends AppCompatActivity {
         if(id == R.id.organizerSignOut) {
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(this, "Signing out...", Toast.LENGTH_SHORT).show();
-           Intent goHome = new Intent(OrganizerDashboard.this, LoginActivity.class);
+           Intent goHome = new Intent(OrganizerDashboard.this, MainActivity.class);
            startActivity(goHome);
            finish();
         }

@@ -81,7 +81,9 @@ public class CreateMusicianProfile extends AppCompatActivity {
                     databaseReference.child(MUSICIAN_PROFILE).child(userId).setValue(musicianEntity);
 
                     Toast.makeText(CreateMusicianProfile.this, "Saving profile information.", Toast.LENGTH_SHORT).show();
-//                    Intent musicianDashboard = new Intent(CreateMusicianProfile.this, null);
+                    Intent musicianDashboard = new Intent(CreateMusicianProfile.this, TestMusicianDashboard.class);
+                    startActivity(musicianDashboard);
+                    finish();
 
 
 

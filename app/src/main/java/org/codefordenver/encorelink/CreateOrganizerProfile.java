@@ -75,8 +75,6 @@ public class CreateOrganizerProfile extends AppCompatActivity {
 
         emailAddress = findViewById(R.id.emailAddress);
 
-        btnViewDatabase = findViewById(R.id.dbButton);
-
         persistButton = findViewById(R.id.pushToDB);
 
 
@@ -128,6 +126,7 @@ public class CreateOrganizerProfile extends AppCompatActivity {
                 Toast.makeText(CreateOrganizerProfile.this, "Saving to Database", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(CreateOrganizerProfile.this, OrganizerDashboard.class);
                 startActivity(intent);
+                finish();
 
 
 
@@ -138,13 +137,6 @@ public class CreateOrganizerProfile extends AppCompatActivity {
 
         });
 
-        btnViewDatabase.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CreateOrganizerProfile.this, ViewDatabase.class);
-                startActivity(intent);
-            }
-        });
 
     }
 

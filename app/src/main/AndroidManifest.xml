@@ -3,6 +3,7 @@
     package="org.codefordenver.encorelink">
 
     <application
+        android:name=".FirebaseAppOnStartConfiguration"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,8 +20,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateOrganizerProfile" />
-        <activity android:name=".ViewDatabase" />
         <activity android:name=".MainScreenActivity" />
+        <activity android:name=".OrganizerDashboard" />
+        <activity android:name=".CreateMusicianProfile" />
+        <activity android:name=".EditOrganizerProfile" />
+        <activity android:name=".TestMusicianDashboard" />
     </application>
 
 </manifest>
