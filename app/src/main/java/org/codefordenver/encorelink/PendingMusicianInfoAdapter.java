@@ -1,6 +1,7 @@
 package org.codefordenver.encorelink;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,9 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusicianInfoAdapter.ViewHolder>{
 
-    private String[] musicianInfo;
+    private ArrayList<String> musicianInfo;
 
      class ViewHolder extends RecyclerView.ViewHolder {
         private CardView cardView;
@@ -20,12 +24,14 @@ public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusi
         }
 
         void bind(int position) {
+
             TextView textView = cardView.findViewById(R.id.pending_musician_info);
-            textView.setText(musicianInfo[position]);
-        }
+           textView.setText(musicianInfo.get(position));
+            }
+
     }
 
-    public PendingMusicianInfoAdapter(String[] musicianInfo) {
+    public PendingMusicianInfoAdapter(ArrayList<String> musicianInfo) {
         this.musicianInfo = musicianInfo;
     }
 
@@ -54,6 +60,6 @@ public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusi
     //returns number of items in data source
     @Override
     public int getItemCount() {
-        return musicianInfo.length;
+        return musicianInfo.size();
     }
 }
