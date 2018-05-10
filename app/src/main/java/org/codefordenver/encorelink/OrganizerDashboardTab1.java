@@ -2,6 +2,7 @@ package org.codefordenver.encorelink;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -29,6 +30,8 @@ public class OrganizerDashboardTab1 extends Fragment {
 
 
     private String userId;
+
+    public static String musicalTalentLink;
 
     //Arraylist to hold our list of volunteer musicians
     private ArrayList<String> volunteerSmallView = new ArrayList<>();
@@ -68,7 +71,7 @@ public class OrganizerDashboardTab1 extends Fragment {
 
         //this clear is a must so we aren't getting duplicated data in the cardview
         volunteerSmallView.clear();
-
+        musicalTalentLink = "";
 
         //Adding child event listener to our database object
         mDatabase.addChildEventListener(new ChildEventListener() {
@@ -115,12 +118,12 @@ public class OrganizerDashboardTab1 extends Fragment {
 
                     if (dataSnapshot1.getKey().equals("videoLink")) {
                         tempVideoLink = Objects.requireNonNull("Video Link: " + dataSnapshot1.getValue(String.class));
+                        musicalTalentLink = tempVideoLink;
 
                         volunteerDetail.add(tempFirst + " " + tempLastName +
                                 "\n" + tempPhoneNumber +
                                 "\n" + tempStreetAddress +
-                                "\n" + tempCity + ", " + tempZipcode + "\n" + tempTalent + "\n"
-                                + tempVideoLink);
+                                "\n" + tempCity + ", " + tempZipcode + "\n" + tempTalent + "\n");
                     }
 
 
@@ -136,6 +139,7 @@ public class OrganizerDashboardTab1 extends Fragment {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
                 adapter.notifyDataSetChanged();
             }
 

@@ -47,7 +47,7 @@ public class CreateMusicianProfile extends AppCompatActivity {
         firstName = findViewById(R.id.musician_first_name);
         lastName = findViewById(R.id.musician_last_name);
         phoneNumber = findViewById(R.id.musician_phonenumber);
-        streetAddress = findViewById(R.id.musician_city);
+        streetAddress = findViewById(R.id.musician_street_address);
         city = findViewById(R.id.musician_city);
         zipcode = findViewById(R.id.musician_zipcode);
         musicalTalent = findViewById(R.id.musician_talent);

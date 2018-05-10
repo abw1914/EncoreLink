@@ -11,6 +11,17 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/x_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textColor="@color/black"
+        android:text="X"
+        android:textStyle="bold"
+        android:layout_gravity="end"
+        android:gravity="center"
+        android:background="@drawable/circlebackground"/>
+
+    <TextView
 
         android:textColor="@color/black"
         android:shadowColor="@color/black"
@@ -22,10 +33,22 @@
         android:layout_gravity="center"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
 
-    <Button
-        android:id="@+id/back_button"
+    <TextView
+        android:id="@+id/musical_talent_link"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Back" />
+       />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Approve" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reject" />
 
 </LinearLayout>
