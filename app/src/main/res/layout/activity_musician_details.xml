@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="475dp"
+    android:padding="5dp"
+    tools:context=".MusicianDetails"
+    android:background="@color/lightGray"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+
+        android:textColor="@color/black"
+        android:shadowColor="@color/black"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/musician_details"
+        android:layout_gravity="center"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back" />
+
+</LinearLayout>

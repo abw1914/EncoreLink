@@ -5,4 +5,5 @@
     <color name="colorAccent">#98FDFF</color>
     <color name="black">#000000</color>
     <color name="snow">#FFFFFF</color>
+    <color name="lightGray">#e0f2f1</color>
 </resources>

@@ -23,9 +23,12 @@
         <activity android:name=".MainScreenActivity" />
         <activity android:name=".OrganizerDashboard" />
         <activity android:name=".CreateMusicianProfile" />
-        <activity android:name=".EditOrganizerProfile"
-            android:theme="@style/AppTheme.SlidrActivityTheme"/>
+        <activity
+            android:name=".EditOrganizerProfile"
+            android:theme="@style/AppTheme.SlidrActivityTheme" />
         <activity android:name=".TestMusicianDashboard" />
+        <activity android:name=".MusicianDetails"
+            android:theme="@style/AppTheme.SlidrActivityThemeForPopUp"/>
     </application>
 
 </manifest>

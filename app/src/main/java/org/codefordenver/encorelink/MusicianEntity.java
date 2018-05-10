@@ -1,7 +1,5 @@
 package org.codefordenver.encorelink;
 
-import android.widget.EditText;
-
 public class MusicianEntity {
 
     private String firstName;
@@ -12,18 +10,6 @@ public class MusicianEntity {
     private String zipcode;
     private String musicalTalent;
     private String videoLink;
-    private String musicianId;
-
-    public String getMusicianId() {
-        return musicianId;
-    }
-
-    public void setMusicianId(String musicianId) {
-
-        musicianId = CreateMusicianProfile.userId;
-
-        this.musicianId = musicianId;
-    }
 
     public String getFirstName() {
         return firstName;

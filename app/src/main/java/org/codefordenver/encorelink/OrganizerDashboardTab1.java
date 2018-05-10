@@ -1,19 +1,15 @@
 package org.codefordenver.encorelink;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,11 +31,18 @@ public class OrganizerDashboardTab1 extends Fragment {
     private String userId;
 
     //Arraylist to hold our list of volunteer musicians
-    private ArrayList<String> volunteers = new ArrayList<>();
+    private ArrayList<String> volunteerSmallView = new ArrayList<>();
+    public static ArrayList<String>  volunteerDetail = new ArrayList<>();
 
     //private String field members to hold temp String data
     private String tempFirst;
     private String tempTalent;
+    private String tempLastName;
+    private String tempPhoneNumber;
+    private String tempStreetAddress;
+    private String tempCity;
+    private String tempZipcode;
+    private String tempVideoLink;
 
 
     @Nullable
@@ -61,10 +64,10 @@ public class OrganizerDashboardTab1 extends Fragment {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child(CreateMusicianProfile.MUSICIAN_PROFILE);
 
         //Instantiating and declaring our Adapter object for our Recycler View
-        final PendingMusicianInfoAdapter adapter = new PendingMusicianInfoAdapter(volunteers);
+        final PendingMusicianInfoAdapter adapter = new PendingMusicianInfoAdapter(volunteerSmallView);
 
         //this clear is a must so we aren't getting duplicated data in the cardview
-        volunteers.clear();
+        volunteerSmallView.clear();
 
 
         //Adding child event listener to our database object
@@ -78,17 +81,51 @@ public class OrganizerDashboardTab1 extends Fragment {
 
                     //if we get a first name, add it to temp string
                     if (dataSnapshot1.getKey().equals("firstName")) {
-                        tempFirst = Objects.requireNonNull("First name: " + dataSnapshot1.getValue(String.class));
+                        tempFirst = Objects.requireNonNull(dataSnapshot1.getValue(String.class));
+                    }
+
+                    if (dataSnapshot1.getKey().equals("lastName")) {
+                        tempLastName = Objects.requireNonNull(dataSnapshot1.getValue(String.class));
                     }
 
                     //if we get a musical talent, save it also into a temp string
                     if (dataSnapshot1.getKey().equals("musicalTalent")) {
-                        tempTalent = Objects.requireNonNull("Talent: " + dataSnapshot1.getValue(String.class));
+                        tempTalent = Objects.requireNonNull("\nTalent: " + dataSnapshot1.getValue(String.class));
 
                         //in order to display all the string data together in one card,
                         //we have to add each temp string to the array list.
-                        volunteers.add(tempFirst + "\n" + tempTalent);
+                        volunteerSmallView.add(tempFirst + " " + tempLastName + tempTalent);
                     }
+
+                    if (dataSnapshot1.getKey().equals("phoneNumber")) {
+                        tempPhoneNumber = Objects.requireNonNull( dataSnapshot1.getValue(String.class));
+                    }
+
+                    if (dataSnapshot1.getKey().equals("streetAddress")) {
+                        tempStreetAddress = Objects.requireNonNull(dataSnapshot1.getValue(String.class));
+                    }
+
+                    if (dataSnapshot1.getKey().equals("city")) {
+                        tempCity = Objects.requireNonNull(dataSnapshot1.getValue(String.class));
+                    }
+
+                    if (dataSnapshot1.getKey().equals("zipcode")) {
+                        tempZipcode = Objects.requireNonNull("Zipcode: " + dataSnapshot1.getValue(String.class));
+                    }
+
+                    if (dataSnapshot1.getKey().equals("videoLink")) {
+                        tempVideoLink = Objects.requireNonNull("Video Link: " + dataSnapshot1.getValue(String.class));
+
+                        volunteerDetail.add(tempFirst + " " + tempLastName +
+                                "\n" + tempPhoneNumber +
+                                "\n" + tempStreetAddress +
+                                "\n" + tempCity + ", " + tempZipcode + "\n" + tempTalent + "\n"
+                                + tempVideoLink);
+                    }
+
+
+
+
 
 
                 }
@@ -121,6 +158,15 @@ public class OrganizerDashboardTab1 extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         musicianInfoRecycler.setLayoutManager(linearLayoutManager);
+
+        adapter.setListener(new PendingMusicianInfoAdapter.Listener() {
+            @Override
+            public void onClick(int position) {
+                Intent intent = new Intent(getActivity(), MusicianDetails.class);
+                intent.putExtra(MusicianDetails.EXTRA_NUMBER, position);
+                getActivity().startActivity(intent);
+            }
+        });
 
         return musicianInfoRecycler;
 
