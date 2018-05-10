@@ -35,8 +35,14 @@
 
     <TextView
         android:id="@+id/musical_talent_link"
+        android:textColor="@color/black"
+        android:shadowColor="@color/black"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
        />
 
     <Button

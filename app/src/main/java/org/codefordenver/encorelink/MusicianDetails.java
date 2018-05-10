@@ -1,25 +1,30 @@
 package org.codefordenver.encorelink;
 
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ShareActionProvider;
-import android.widget.TextView;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Patterns;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import com.r0adkll.slidr.Slidr;
-
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.regex.Matcher;
 
 public class MusicianDetails extends AppCompatActivity {
 
     public static final String EXTRA_NUMBER = "number";
+
     private TextView closeButton;
-    private TextView musicalTalentText;
+    private int cardNumber;
+    private String talentURL;
+    private TextView musicalTalentLink;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,27 +32,31 @@ public class MusicianDetails extends AppCompatActivity {
         setContentView(R.layout.activity_musician_details);
 
         closeButton = findViewById(R.id.x_button);
-        musicalTalentText = findViewById(R.id.musical_talent_link);
-
-        int cardNumber = (int) getIntent().getExtras().get(EXTRA_NUMBER);
-        String musicianDetails = OrganizerDashboardTab1.volunteerDetail.get(cardNumber);
         TextView textView = findViewById(R.id.musician_details);
+        musicalTalentLink = findViewById(R.id.musical_talent_link);
+
+
+
+        cardNumber = (int) Objects.requireNonNull(getIntent().getExtras()).get(EXTRA_NUMBER);
+        String musicianDetails = OrganizerDashboardTab1.volunteerDetail.get(cardNumber);
+
+        findURL(OrganizerDashboardTab1.volunteerLink);
+        musicalTalentLink.setText(talentURL);
         textView.setText(musicianDetails);
 
-        musicalTalentText.setText(OrganizerDashboardTab1.musicalTalentLink);
-
-        musicalTalentText.setOnClickListener(new View.OnClickListener() {
+        musicalTalentLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
                 try {
-                    intent.setData(Uri.parse(OrganizerDashboardTab1.musicalTalentLink));
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(talentURL));
                     startActivity(intent);
-                } catch (ActivityNotFoundException exception) {
-                    Toast.makeText(v.getContext(), "Error text", Toast.LENGTH_SHORT).show();
+                } catch (ActivityNotFoundException e){
+                    Toast.makeText(MusicianDetails.this, "Bad URL!", Toast.LENGTH_SHORT).show();
                 }
-        }
+            }
         });
+
 
 
         closeButton.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +67,16 @@ public class MusicianDetails extends AppCompatActivity {
         });
 
     }
+
+    public void findURL(ArrayList<String> data) {
+
+        Matcher m = Patterns.WEB_URL.matcher(data.get (cardNumber));
+        while (m.find()) {
+            String url = m.group();
+            talentURL = url;
+        }
+    }
+
 
 
 }

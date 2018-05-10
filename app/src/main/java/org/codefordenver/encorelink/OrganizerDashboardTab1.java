@@ -31,11 +31,11 @@ public class OrganizerDashboardTab1 extends Fragment {
 
     private String userId;
 
-    public static String musicalTalentLink;
 
     //Arraylist to hold our list of volunteer musicians
     private ArrayList<String> volunteerSmallView = new ArrayList<>();
     public static ArrayList<String>  volunteerDetail = new ArrayList<>();
+    public static ArrayList<String> volunteerLink = new ArrayList<>();
 
     //private String field members to hold temp String data
     private String tempFirst;
@@ -45,7 +45,7 @@ public class OrganizerDashboardTab1 extends Fragment {
     private String tempStreetAddress;
     private String tempCity;
     private String tempZipcode;
-    private String tempVideoLink;
+    public static String tempVideoLink;
 
 
     @Nullable
@@ -71,8 +71,6 @@ public class OrganizerDashboardTab1 extends Fragment {
 
         //this clear is a must so we aren't getting duplicated data in the cardview
         volunteerSmallView.clear();
-        musicalTalentLink = "";
-
         //Adding child event listener to our database object
         mDatabase.addChildEventListener(new ChildEventListener() {
 
@@ -117,13 +115,14 @@ public class OrganizerDashboardTab1 extends Fragment {
                     }
 
                     if (dataSnapshot1.getKey().equals("videoLink")) {
-                        tempVideoLink = Objects.requireNonNull("Video Link: " + dataSnapshot1.getValue(String.class));
-                        musicalTalentLink = tempVideoLink;
+                        tempVideoLink = Objects.requireNonNull(dataSnapshot1.getValue(String.class));
+                        volunteerLink.add(tempVideoLink);
 
                         volunteerDetail.add(tempFirst + " " + tempLastName +
                                 "\n" + tempPhoneNumber +
                                 "\n" + tempStreetAddress +
                                 "\n" + tempCity + ", " + tempZipcode + "\n" + tempTalent + "\n");
+
                     }
 
 

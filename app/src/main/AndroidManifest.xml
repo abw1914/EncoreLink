@@ -28,7 +28,7 @@
             android:theme="@style/AppTheme.SlidrActivityTheme" />
         <activity android:name=".TestMusicianDashboard" />
         <activity android:name=".MusicianDetails"
-            android:theme="@style/AppTheme.SlidrActivityThemeForPopUp"/>
+            android:theme="@style/AppTheme.ThemeForPopUp"/>
     </application>
 
 </manifest>
