@@ -24,7 +24,7 @@ public class MusicianDetails extends AppCompatActivity {
 
     public static final String EXTRA_NUMBER = "number";
 //
-//    public static ArrayList<String> approvedMusicians = new ArrayList<>();
+    public static ArrayList<String> approvedMusicians = new ArrayList<>();
     private TextView closeButton;
     public static int cardNumber;
     private String talentURL;
@@ -83,12 +83,12 @@ public class MusicianDetails extends AppCompatActivity {
         approvalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                approvedMusicians.add(OrganizerDashboardPendingTab.volunteerDetail.get(cardNumber));
                 databaseReference.child("approved_musicians").child(userId).child(String.valueOf(cardNumber)).
                         setValue(OrganizerDashboardPendingTab.volunteerDetail.get(cardNumber));
                 Toast.makeText(MusicianDetails.this, "Musician approved!", Toast.LENGTH_SHORT - 3).show();
                 Toast.makeText(MusicianDetails.this, "Moving musician to In Progress...", Toast.LENGTH_SHORT).show();
-                approved = true;
+                approvedMusicians.add(OrganizerDashboardPendingTab.volunteerDetail.get(cardNumber));
+
 
 
             }
@@ -107,7 +107,7 @@ public class MusicianDetails extends AppCompatActivity {
 
     public void findURL(ArrayList<String> data) {
 
-        Matcher m = Patterns.WEB_URL.matcher(data.get (cardNumber));
+        Matcher m = Patterns.WEB_URL.matcher(data.get(cardNumber));
         while (m.find()) {
             String url = m.group();
             talentURL = url;
