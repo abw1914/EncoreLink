@@ -84,7 +84,7 @@ public class MusicianDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                approvedMusicians.add(OrganizerDashboardPendingTab.volunteerDetail.get(cardNumber));
-                databaseReference.child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId).child("approved_musicians").child(String.valueOf(cardNumber)).
+                databaseReference.child("approved_musicians").child(userId).child(String.valueOf(cardNumber)).
                         setValue(OrganizerDashboardPendingTab.volunteerDetail.get(cardNumber));
                 Toast.makeText(MusicianDetails.this, "Musician approved!", Toast.LENGTH_SHORT - 3).show();
                 Toast.makeText(MusicianDetails.this, "Moving musician to In Progress...", Toast.LENGTH_SHORT).show();

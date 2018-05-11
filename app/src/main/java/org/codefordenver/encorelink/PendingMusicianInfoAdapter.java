@@ -54,6 +54,8 @@ public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusi
                 }
             });
 
+            cardView.setCardElevation(2);
+            cardView.setPadding(1,1,1,1);
 
         }
 

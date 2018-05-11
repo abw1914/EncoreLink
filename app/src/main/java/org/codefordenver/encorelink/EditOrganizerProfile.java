@@ -43,6 +43,7 @@ public class EditOrganizerProfile extends AppCompatActivity {
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child(CreateOrganizerProfile.ORGANIZER_PROFILE);
 
+
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, userInfo);
         editOrganizerProfileListView.setAdapter(arrayAdapter);
 
