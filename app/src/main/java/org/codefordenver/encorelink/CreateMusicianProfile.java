@@ -24,9 +24,7 @@ public class CreateMusicianProfile extends AppCompatActivity {
     private EditText zipcode;
     private EditText musicalTalent;
     private EditText videoLink;
-    private Button saveButton;
 
-    private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
     private MusicianEntity musicianEntity = new MusicianEntity();
     public static String userId;
@@ -38,7 +36,7 @@ public class CreateMusicianProfile extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null) {
             userId = user.getUid();
@@ -52,7 +50,7 @@ public class CreateMusicianProfile extends AppCompatActivity {
         zipcode = findViewById(R.id.musician_zipcode);
         musicalTalent = findViewById(R.id.musician_talent);
         videoLink = findViewById(R.id.video_link);
-        saveButton = findViewById(R.id.save_musician_profile);
+        Button saveButton = findViewById(R.id.save_musician_profile);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
