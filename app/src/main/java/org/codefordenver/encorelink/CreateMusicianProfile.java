@@ -65,7 +65,7 @@ public class CreateMusicianProfile extends AppCompatActivity {
                 musicianEntity.setMusicalTalent(musicalTalent.getText().toString());
                 musicianEntity.setVideoLink(videoLink.getText().toString());
 
-                if (musicianEntity.getFirstName().isEmpty()) {
+                if (musicianEntity.getFirstName().length() <= 0) {
                     Toast.makeText(CreateMusicianProfile.this, "First name is required!", Toast.LENGTH_SHORT).show();
                 }
                 if (musicianEntity.getLastName().isEmpty()) {

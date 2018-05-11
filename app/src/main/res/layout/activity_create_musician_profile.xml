@@ -54,18 +54,6 @@
         android:layout_column="0"
         android:text="@string/last_name" />
 
-    <EditText
-        android:id="@+id/musician_first_name"
-        android:layout_width="231dp"
-        android:layout_height="wrap_content"
-        android:layout_column="1"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_row="1"
-        android:textSize="14sp"
-        android:inputType="text" />
 
     <TextView
         android:id="@+id/musician_phonenumber_view"
