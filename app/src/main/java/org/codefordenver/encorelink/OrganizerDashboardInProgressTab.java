@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 /**
  * This is an empty activity for now.
  */
-public class OrganizerDashboardTab3 extends Fragment {
+public class OrganizerDashboardInProgressTab extends Fragment {
 
     @Nullable
     @Override

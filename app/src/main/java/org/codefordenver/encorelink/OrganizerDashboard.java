@@ -2,8 +2,6 @@ package org.codefordenver.encorelink;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -170,13 +168,13 @@ public class OrganizerDashboard extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch(position) {
                 case 0:
-                    OrganizerDashboardTab1 tab1 = new OrganizerDashboardTab1();
+                    OrganizerDashboardPendingTab tab1 = new OrganizerDashboardPendingTab();
                     return tab1;
                 case 1:
                     OrganizerDashboardTab2 tab2 = new OrganizerDashboardTab2();
                     return tab2;
                 case 2:
-                    OrganizerDashboardTab3 tab3 = new OrganizerDashboardTab3();
+                    OrganizerDashboardInProgressTab tab3 = new OrganizerDashboardInProgressTab();
                     return tab3;
             }
             return null;

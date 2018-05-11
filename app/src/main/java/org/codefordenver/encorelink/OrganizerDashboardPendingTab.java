@@ -23,17 +23,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Objects;
 
-/**
- * This is an empty activity for now.
- */
-public class OrganizerDashboardTab1 extends Fragment {
+
+public class OrganizerDashboardPendingTab extends Fragment {
 
 
     private String userId;
 
 
     //Arraylist to hold our list of volunteer musicians
-    private ArrayList<String> volunteerSmallView = new ArrayList<>();
+    public static ArrayList<String> volunteerSmallView = new ArrayList<>();
     public static ArrayList<String>  volunteerDetail = new ArrayList<>();
     public static ArrayList<String> volunteerLink = new ArrayList<>();
 
@@ -62,7 +60,6 @@ public class OrganizerDashboardTab1 extends Fragment {
         if (user != null) {
             userId = user.getUid();
         }
-
         //setting DatabaseReference variable so we can search through the correct node in our DB
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child(CreateMusicianProfile.MUSICIAN_PROFILE);
 
@@ -95,7 +92,9 @@ public class OrganizerDashboardTab1 extends Fragment {
 
                         //in order to display all the string data together in one card,
                         //we have to add each temp string to the array list.
-                        volunteerSmallView.add(tempFirst + " " + tempLastName + tempTalent);
+
+                            volunteerSmallView.add(tempFirst + " " + tempLastName + tempTalent);
+
                     }
 
                     if (dataSnapshot1.getKey().equals("phoneNumber")) {
@@ -124,11 +123,6 @@ public class OrganizerDashboardTab1 extends Fragment {
                                 "\n" + tempCity + ", " + tempZipcode + "\n" + tempTalent + "\n");
 
                     }
-
-
-
-
-
 
                 }
                 //set adapater equal to our adapater object
@@ -171,9 +165,9 @@ public class OrganizerDashboardTab1 extends Fragment {
             }
         });
 
+
         return musicianInfoRecycler;
 
     }
-
 
 }
