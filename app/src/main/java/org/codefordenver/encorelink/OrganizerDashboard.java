@@ -18,6 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 /**
@@ -43,6 +49,7 @@ public class OrganizerDashboard extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,22 +73,19 @@ public class OrganizerDashboard extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        // FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        //Checking to make sure user is logged in and is not null
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
+            userId = user.getUid();
+        }
+        //setting DatabaseReference variable so we can search through the correct node in our DB
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child(CreateMusicianProfile.MUSICIAN_PROFILE);
+
+        DatabaseReference copyReference = FirebaseDatabase.getInstance().getReference().child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId).child("pending_musicians");
+        copyPendingMusiciansToEachOrganizersNode(mDatabase,copyReference);
 
 
-
-
-
-
-
-        //
-        // fab.setOnClickListener(new View.OnClickListener() {
-        //     @Override
-        //     public void onClick(View view) {
-        //         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-        //                 .setAction("Action", null).show();
-        //     }
-        // });
 
     }
 
@@ -185,5 +189,29 @@ public class OrganizerDashboard extends AppCompatActivity {
             // Show 3 total pages.
             return 3;
         }
+    }
+
+    private void copyPendingMusiciansToEachOrganizersNode(final DatabaseReference fromPath, final DatabaseReference toPath) {
+        fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                toPath.setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError firebaseError, DatabaseReference firebase) {
+                        if (firebaseError != null) {
+                            System.out.println("Copy failed");
+                        } else {
+                            System.out.println("Success");
+
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

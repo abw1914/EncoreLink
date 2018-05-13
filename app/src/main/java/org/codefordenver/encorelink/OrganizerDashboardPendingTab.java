@@ -2,7 +2,6 @@ package org.codefordenver.encorelink;
 
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +18,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -61,10 +61,10 @@ public class OrganizerDashboardPendingTab extends Fragment {
             userId = user.getUid();
         }
         //setting DatabaseReference variable so we can search through the correct node in our DB
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child(CreateMusicianProfile.MUSICIAN_PROFILE);
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId).child("pending_musicians");
 
         //Instantiating and declaring our Adapter object for our Recycler View
-        final PendingMusicianInfoAdapter adapter = new PendingMusicianInfoAdapter(volunteerSmallView);
+        final PendingMusicianInfoAdapter adapter = new PendingMusicianInfoAdapter(volunteerDetail);
 
         //this clear is a must so we aren't getting duplicated data in the cardview
         volunteerSmallView.clear();
@@ -88,7 +88,7 @@ public class OrganizerDashboardPendingTab extends Fragment {
 
                     //if we get a musical talent, save it also into a temp string
                     if (dataSnapshot1.getKey().equals("musicalTalent")) {
-                        tempTalent = Objects.requireNonNull("\nTalent: " + dataSnapshot1.getValue(String.class));
+                        tempTalent = Objects.requireNonNull("Talent: " + dataSnapshot1.getValue(String.class));
 
                         //in order to display all the string data together in one card,
                         //we have to add each temp string to the array list.
@@ -120,7 +120,7 @@ public class OrganizerDashboardPendingTab extends Fragment {
                         volunteerDetail.add(tempFirst + " " + tempLastName +
                                 "\n" + tempPhoneNumber +
                                 "\n" + tempStreetAddress +
-                                "\n" + tempCity + ", " + tempZipcode + "\n" + tempTalent + "\n");
+                                "\n" + tempCity + ", " + tempZipcode + "\n" + tempTalent);
 
                     }
 
@@ -156,18 +156,12 @@ public class OrganizerDashboardPendingTab extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         musicianInfoRecycler.setLayoutManager(linearLayoutManager);
 
-        adapter.setListener(new PendingMusicianInfoAdapter.Listener() {
-            @Override
-            public void onClick(int position) {
-                Intent intent = new Intent(getActivity(), MusicianDetails.class);
-                intent.putExtra(MusicianDetails.EXTRA_NUMBER, position);
-                getActivity().startActivity(intent);
-            }
-        });
 
 
         return musicianInfoRecycler;
 
     }
+
+
 
 }

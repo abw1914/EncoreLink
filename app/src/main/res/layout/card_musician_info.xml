@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="300dp"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/musician_info_cardview"
     card_view:cardElevation="3.5sp"
@@ -15,17 +15,36 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_gravity="center_horizontal"
-            android:textAlignment="center"
             android:id="@+id/pending_musician_info"
-            android:textSize="25dp"
-            android:typeface="serif"
-            android:paddingLeft="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingLeft="8dp"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:typeface="serif" />
 
+        <TextView
+            android:id="@+id/musical_talent_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingLeft="8dp"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:typeface="serif" />
 
+        <Button
+            android:id="@+id/musician_approval"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Approve" />
 
+        <Button
+            android:id="@+id/musician_rejection_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reject" />
 
 
     </LinearLayout>

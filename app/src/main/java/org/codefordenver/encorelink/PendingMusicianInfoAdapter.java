@@ -1,58 +1,48 @@
 package org.codefordenver.encorelink;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
+import android.content.ActivityNotFoundException;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
 
 public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusicianInfoAdapter.ViewHolder> {
 
     private ArrayList<String> musicianInfo;
-    private Listener listener;
+    private String talentURL;
+    public static ArrayList<String> approvedMusicians = new ArrayList<>();
 
-
-    public interface Listener {
-        void onClick(int position);
-    }
-
-    public void setListener(Listener listener) {
-        this.listener = listener;
-    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+
         private CardView cardView;
         Button rejectionButton;
-
-
+        private Button approvalButton;
+        private DatabaseReference databaseReference;
+        private String userId;
+        private FirebaseAuth firebaseAuth;
+        private FirebaseUser firebaseUser;
 
 
         public ViewHolder(View view) {
             super(view);
             cardView = (CardView) view;
 
-            LayoutInflater li = LayoutInflater.from(view.getContext());
-            View v = li.inflate(R.layout.activity_musician_details,cardView,false);
-
-            rejectionButton = v.findViewById(R.id.musician_rejection_button);
-            rejectionButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                        removeAt(getAdapterPosition());
-                        Toast.makeText(v.getContext(), "Removing " + OrganizerDashboardPendingTab.volunteerSmallView.get(getAdapterPosition()), Toast.LENGTH_SHORT).show();
-                    }catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
 
             cardView.setCardElevation(2);
             cardView.setPadding(1,1,1,1);
@@ -61,17 +51,70 @@ public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusi
 
         void bind(final int position) {
 
+            databaseReference = FirebaseDatabase.getInstance().getReference();
+
+            firebaseAuth = FirebaseAuth.getInstance();
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if (user != null) {
+                userId = user.getUid();
+            }
+
+
+
+            Matcher m = Patterns.WEB_URL.matcher(OrganizerDashboardPendingTab.volunteerLink.get(position));
+            while (m.find()) {
+                talentURL = m.group();
+            }
+
             TextView textView = cardView.findViewById(R.id.pending_musician_info);
+            TextView userURL = cardView.findViewById(R.id.musical_talent_link);
             textView.setText(musicianInfo.get(position));
-            cardView.setOnClickListener(new View.OnClickListener() {
+            userURL.setText(talentURL);
+
+            userURL.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (listener != null) {
-                        listener.onClick(position);
+                    try {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(talentURL));
+                        v.getContext().startActivity(intent);
+                    } catch (ActivityNotFoundException e){
+                        Toast.makeText(v.getContext(), "Bad URL!", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
 
+            approvalButton = cardView.findViewById(R.id.musician_approval);
+
+            approvalButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    databaseReference.child("approved_musicians").child(userId).child(String.valueOf(position)).
+                            setValue(OrganizerDashboardPendingTab.volunteerDetail.get(position));
+                    Toast.makeText(v.getContext(), "Musician approved!", Toast.LENGTH_SHORT - 3).show();
+                    Toast.makeText(v.getContext(), "Moving musician to In Progress...", Toast.LENGTH_SHORT).show();
+                    approvedMusicians.add(OrganizerDashboardPendingTab.volunteerDetail.get(position));
+
+
+
+                }
+            });
+
+            rejectionButton = cardView.findViewById(R.id.musician_rejection_button);
+            rejectionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        removeAt(getAdapterPosition());
+                        notifyItemRemoved(getAdapterPosition());
+                        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId).child("pending_musicians");
+                        mDatabase.removeValue();
+                        Toast.makeText(v.getContext(), "Removing " + OrganizerDashboardPendingTab.volunteerSmallView.get(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+                    }catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
 
 
         }

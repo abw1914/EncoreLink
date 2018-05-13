@@ -59,12 +59,12 @@ public class OrganizerDashboardInProgressTab extends Fragment {
 
         //Checking to make sure user is logged in and is not null
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null) {
             userId = user.getUid();
         }
         //setting DatabaseReference variable so we can search through the correct node in our DB
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("approved_musicians");
+        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("approved_musicians");
 
         //Instantiating and declaring our Adapter object for our Recycler View
         final InProcessMusicianAdapter adapter = new InProcessMusicianAdapter(volunteerSmallView);
@@ -81,14 +81,16 @@ public class OrganizerDashboardInProgressTab extends Fragment {
                 //iterate through each dataSnapshot inside mDatabase
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-                    Pattern pattern = Pattern.compile(".*[a-z-A-Z]+(.*)");
-                    Matcher matcher = pattern.matcher(Objects.requireNonNull(dataSnapshot1.getValue()).toString());
-                    if (matcher.find()) {
-                        volunteerSmallView.add(matcher.group());
-                    }else{
-                        System.out.println("No match found");
+                    //make sure we are getting correct user data
+                    if(dataSnapshot.getKey().equals(userId)) {
+                        Pattern pattern = Pattern.compile(".*[a-z-A-Z]+(.*)");
+                        Matcher matcher = pattern.matcher(Objects.requireNonNull(dataSnapshot1.getValue()).toString());
+                        if (matcher.find()) {
+                            volunteerSmallView.add(matcher.group());
+                        } else {
+                            System.out.println("No match found");
+                        }
                     }
-
 
                 }
                 //set adapater equal to our adapater object
@@ -122,15 +124,7 @@ public class OrganizerDashboardInProgressTab extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         musicianInfoRecycler.setLayoutManager(linearLayoutManager);
 
-        adapter.setListener(new InProcessMusicianAdapter.Listener() {
-            @Override
-            public void onClick(int position) {
-                position = MusicianDetails.cardNumber;
-                Intent intent = new Intent(getActivity(), MusicianDetails.class);
-                intent.putExtra(MusicianDetails.EXTRA_NUMBER, position);
-                getActivity().startActivity(intent);
-            }
-        });
+
 
 
         return musicianInfoRecycler;
