@@ -35,7 +35,7 @@ public class OrganizerDashboardInProgressTab extends Fragment {
 
     //Arraylist to hold our list of volunteer musicians
     public static ArrayList<String> volunteerSmallView = new ArrayList<>();
-    public static ArrayList<String>  volunteerDetail = new ArrayList<>();
+    public static ArrayList<String> volunteerDetail = new ArrayList<>();
     public static ArrayList<String> volunteerLink = new ArrayList<>();
 
     //private String field members to hold temp String data
@@ -82,7 +82,7 @@ public class OrganizerDashboardInProgressTab extends Fragment {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                     //make sure we are getting correct user data
-                    if(dataSnapshot.getKey().equals(userId)) {
+                    if (dataSnapshot.getKey().equals(userId)) {
                         Pattern pattern = Pattern.compile(".*[a-z-A-Z]+(.*)");
                         Matcher matcher = pattern.matcher(Objects.requireNonNull(dataSnapshot1.getValue()).toString());
                         if (matcher.find()) {
@@ -123,8 +123,6 @@ public class OrganizerDashboardInProgressTab extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         musicianInfoRecycler.setLayoutManager(linearLayoutManager);
-
-
 
 
         return musicianInfoRecycler;

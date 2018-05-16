@@ -15,6 +15,9 @@ import android.content.Intent;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -26,6 +29,7 @@ public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusi
     private ArrayList<String> musicianInfo;
     private String talentURL;
     public static ArrayList<String> approvedMusicians = new ArrayList<>();
+    public static String musicianPosition;
 
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -37,6 +41,7 @@ public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusi
         private String userId;
         private FirebaseAuth firebaseAuth;
         private FirebaseUser firebaseUser;
+        private String musicianId;
 
 
         public ViewHolder(View view) {
@@ -50,6 +55,7 @@ public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusi
         }
 
         void bind(final int position) {
+
 
             databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -105,18 +111,20 @@ public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusi
                 @Override
                 public void onClick(View v) {
                     try {
-                        removeAt(getAdapterPosition());
-                        notifyItemRemoved(getAdapterPosition());
-                        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId).child("pending_musicians");
-                        mDatabase.removeValue();
-                        Toast.makeText(v.getContext(), "Removing " + OrganizerDashboardPendingTab.volunteerSmallView.get(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+                      final DatabaseReference rejectReference = FirebaseDatabase.getInstance().getReference().child("pending_musicians")
+                                .child(userId);
+                        rejectReference.removeValue();
+                        removeAt(getLayoutPosition());
+                        notifyItemRemoved(getLayoutPosition());
+                        Toast.makeText(v.getContext(), "Removing " + OrganizerDashboardPendingTab.volunteerSmallView.get(getAdapterPosition()),
+                                Toast.LENGTH_SHORT).show();
                     }catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             });
 
-
+            musicianPosition = String.valueOf(position);
         }
 
         void removeAt(int position) {
@@ -136,8 +144,6 @@ public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusi
     //creates the views
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-
         CardView cv = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.card_musician_info, parent, false);
 
 

@@ -56,7 +56,7 @@ public class OrganizerDashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_organizer_dashboard);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         editProfile = findViewById(R.id.editProfile);
         signOut = findViewById(R.id.organizerSignOut);
         setSupportActionBar(toolbar);
@@ -65,10 +65,10 @@ public class OrganizerDashboard extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
@@ -80,11 +80,13 @@ public class OrganizerDashboard extends AppCompatActivity {
             userId = user.getUid();
         }
         //setting DatabaseReference variable so we can search through the correct node in our DB
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child(CreateMusicianProfile.MUSICIAN_PROFILE);
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().
+                getReference().child(CreateMusicianProfile.MUSICIAN_PROFILE);
 
-        DatabaseReference copyReference = FirebaseDatabase.getInstance().getReference().child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId).child("pending_musicians");
-        copyPendingMusiciansToEachOrganizersNode(mDatabase,copyReference);
-
+        //I need to figure out how to get the card view number into the data base.
+        DatabaseReference copyReference = FirebaseDatabase.getInstance().getReference().
+                child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId).child("pending_musicians");
+        copyPendingMusiciansToEachOrganizersNode(mDatabase, copyReference);
 
 
     }
@@ -112,12 +114,12 @@ public class OrganizerDashboard extends AppCompatActivity {
 
         }
 
-        if(id == R.id.organizerSignOut) {
+        if (id == R.id.organizerSignOut) {
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(this, "Signing out...", Toast.LENGTH_SHORT).show();
-           Intent goHome = new Intent(OrganizerDashboard.this, MainActivity.class);
-           startActivity(goHome);
-           finish();
+            Intent goHome = new Intent(OrganizerDashboard.this, MainActivity.class);
+            startActivity(goHome);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -170,7 +172,7 @@ public class OrganizerDashboard extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            switch(position) {
+            switch (position) {
                 case 0:
                     OrganizerDashboardPendingTab tab1 = new OrganizerDashboardPendingTab();
                     return tab1;

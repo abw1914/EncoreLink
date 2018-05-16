@@ -56,22 +56,6 @@ public class InProcessMusicianAdapter extends RecyclerView.Adapter<InProcessMusi
         public ViewHolder(View view) {
             super(view);
             cardView = (CardView) view;
-
-//            LayoutInflater li = LayoutInflater.from(view.getContext());
-//            View v = li.inflate(R.layout.activity_musician_details,cardView,false);
-
-//            rejectionButton = v.findViewById(R.id.musician_rejection_button);
-//            rejectionButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    try {
-//                        Toast.makeText(v.getContext(), "Removing " + OrganizerDashboardPendingTab.volunteerSmallView.get(getAdapterPosition()), Toast.LENGTH_SHORT).show();
-//                    }catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
-
             cardView.setCardElevation(2);
             cardView.setPadding(1,1,1,1);
 

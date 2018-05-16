@@ -67,7 +67,7 @@ public class OrganizerDashboardPendingTab extends Fragment {
         final PendingMusicianInfoAdapter adapter = new PendingMusicianInfoAdapter(volunteerDetail);
 
         //this clear is a must so we aren't getting duplicated data in the cardview
-        volunteerSmallView.clear();
+        volunteerDetail.clear();
         //Adding child event listener to our database object
         mDatabase.addChildEventListener(new ChildEventListener() {
 

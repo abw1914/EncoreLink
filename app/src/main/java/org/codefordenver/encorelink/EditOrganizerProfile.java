@@ -52,9 +52,11 @@ public class EditOrganizerProfile extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    if (dataSnapshot.getKey().equals(userId))
+                    if (dataSnapshot.getKey().equals(userId)) {
+                        if(dataSnapshot.getKey().equals("pending_musicians"))
                         userInfo.add(Objects.requireNonNull(dataSnapshot1.getKey() + ": " +
                                 dataSnapshot1.getValue()));
+                    }
                 }
 
                 arrayAdapter.notifyDataSetChanged();
