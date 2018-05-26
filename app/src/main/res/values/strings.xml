@@ -36,5 +36,6 @@
     <string name="last_name">Last Name*:</string>
     <string name="phone_number">Phone Number*:</string>
     <string name="video_audio_link">Video/Audio Link:</string>
+    <string name="addEvent">Add Event</string>
 
 </resources>
