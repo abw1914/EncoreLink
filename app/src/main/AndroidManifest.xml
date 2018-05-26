@@ -27,6 +27,7 @@
             android:name=".EditOrganizerProfile"
             android:theme="@style/AppTheme.SlidrActivityTheme" />
         <activity android:name=".TestMusicianDashboard" />
+        <activity android:name=".OrganizerCreateEvent"></activity>
     </application>
 
 </manifest>
