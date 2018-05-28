@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,6 +34,11 @@ public class CreateMusicianProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_musician_profile);
+
+        Toolbar profileToolbar = findViewById(R.id.muscian_new_profile_toolbar);
+        setSupportActionBar(profileToolbar);
+
+        getSupportActionBar().setTitle("Complete your profile");
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -83,20 +89,9 @@ public class CreateMusicianProfile extends AppCompatActivity {
                     startActivity(musicianDashboard);
                     finish();
 
-
-
                 }
-
-
-
-
-
-
-
             }
         });
-
-
 
     }
 }

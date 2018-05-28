@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context="org.codefordenver.encorelink.MainScreenActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/muscian_new_profile_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        />
 
     <TextView
         android:id="@+id/textView17"
@@ -14,7 +23,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:text="Profile"
-        android:textColor="@android:color/holo_blue_bright"
+        android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -162,7 +171,7 @@
         android:layout_marginTop="5dp"
         android:layout_row="8"
         android:text="About You"
-        android:textColor="@android:color/holo_blue_bright"
+        android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold" />
 

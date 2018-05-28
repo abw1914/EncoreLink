@@ -84,8 +84,6 @@ public class CreateOrganizerProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-
                 organizerEntity.setOrganizationName(organizationName.getText().toString());
                 organizerEntity.setStreetAddress(streetAddress.getText().toString());
                 organizerEntity.setCity(city.getText().toString());
@@ -128,20 +126,11 @@ public class CreateOrganizerProfile extends AppCompatActivity {
                 startActivity(intent);
                 finish();
 
-
-
-
-
             }
 
 
         });
 
-
     }
-
-
-
-
 
 }
