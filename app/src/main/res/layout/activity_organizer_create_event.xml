@@ -155,10 +155,10 @@
         android:layout_column="0"
         android:text="@string/eventNotes" />
 
-    <EditText
+    <android.support.design.widget.TextInputEditText
         android:id="@+id/addEventNotesText"
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:layout_column="1"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -167,5 +167,13 @@
         android:layout_row="6"
         android:textSize="14sp"
         android:inputType="text" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_column="1"
+        android:layout_row="7"
+        android:text="Create Event" />
 
 </GridLayout>
