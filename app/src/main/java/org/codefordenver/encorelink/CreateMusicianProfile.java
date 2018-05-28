@@ -74,8 +74,6 @@ public class CreateMusicianProfile extends AppCompatActivity {
                 if (musicianEntity.getPhoneNumber().isEmpty()) {
                     Toast.makeText(CreateMusicianProfile.this, "Phone number is required!", Toast.LENGTH_SHORT).show();
                 } else {
-
-
                     databaseReference.child(MUSICIAN_PROFILE).child(userId).setValue(musicianEntity);
 
                     Toast.makeText(CreateMusicianProfile.this, "Saving profile information.", Toast.LENGTH_SHORT).show();
@@ -83,20 +81,10 @@ public class CreateMusicianProfile extends AppCompatActivity {
                     startActivity(musicianDashboard);
                     finish();
 
-
-
                 }
-
-
-
-
-
-
 
             }
         });
-
-
 
     }
 }
