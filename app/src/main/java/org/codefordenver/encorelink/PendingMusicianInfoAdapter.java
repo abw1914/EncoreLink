@@ -81,6 +81,9 @@ public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusi
                 @Override
                 public void onClick(View v) {
                     try {
+                        if (!talentURL.substring(0,4).equals("http")) {
+                            talentURL = "http://" + talentURL;
+                        }
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setData(Uri.parse(talentURL));
                         v.getContext().startActivity(intent);
