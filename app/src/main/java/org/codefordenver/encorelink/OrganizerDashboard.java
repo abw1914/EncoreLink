@@ -106,6 +106,10 @@ public class OrganizerDashboard extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        if (id == R.id.addEvent) {
+            Intent createEvent = new Intent(OrganizerDashboard.this, OrganizerCreateEvent.class);
+            startActivity(createEvent);
+        }
         //noinspection SimplifiableIfStatement
         if (id == R.id.editProfile) {
 
