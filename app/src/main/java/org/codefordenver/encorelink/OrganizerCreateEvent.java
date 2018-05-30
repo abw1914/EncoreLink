@@ -32,6 +32,7 @@ public class OrganizerCreateEvent extends AppCompatActivity {
     private DatabaseReference databaseReference;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +48,7 @@ public class OrganizerCreateEvent extends AppCompatActivity {
 
         eventTitle = findViewById(R.id.addEventTitleEditText);
         streetAddress = findViewById(R.id.addEventAddressEditText);
-        city = findViewById(R.id.addEventCityZipText);
+        city = findViewById(R.id.addEventCityEditText);
         zipcode = findViewById(R.id.addEventCityZipText);
         startTime = findViewById(R.id.addEventStartTimeText);
         endTime = findViewById(R.id.addEventEndTimeText);
@@ -66,7 +67,8 @@ public class OrganizerCreateEvent extends AppCompatActivity {
                 eventEntity.setNotes(notes.getText().toString());
 
 
-                databaseReference.child("Events").setValue(eventEntity);
+
+                databaseReference.child("Events").child(userId).child(eventTitle.getText().toString()).setValue(eventEntity);
 
                 Toast.makeText(OrganizerCreateEvent.this, "Saving to Database", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(OrganizerCreateEvent.this, OrganizerDashboard.class);
