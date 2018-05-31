@@ -7,4 +7,9 @@
         android:orderInCategory="100"
         android:title="View/Edit Profile"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/signoutMusicianProfile"
+        android:orderInCategory="200"
+        android:title="Sign Out"
+        app:showAsAction="never" />
 </menu>

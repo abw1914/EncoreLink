@@ -25,6 +25,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.codefordenver.encorelink.OrganizerTabs.OrganizerDashboardInProgressTab;
+import org.codefordenver.encorelink.OrganizerTabs.OrganizerDashboardPendingTab;
+import org.codefordenver.encorelink.OrganizerTabs.OrganizerDashboardTab2;
+
 
 /**
  * This class is a multi tab view and includes a menu. Still working on the edit profile
