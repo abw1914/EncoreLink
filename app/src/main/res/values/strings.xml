@@ -44,5 +44,6 @@
     <string name="startTime">Start Time</string>
     <string name="endTime">End Time</string>
     <string name="eventNotes">Event Notes</string>
+    <string name="title_activity_musician_dashboard">MusicianDashboard</string>
 
 </resources>
