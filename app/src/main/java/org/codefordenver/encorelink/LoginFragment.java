@@ -158,7 +158,7 @@ public class LoginFragment extends Fragment {
                                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                                 if (dataSnapshot.getKey().equals(CreateMusicianProfile.MUSICIAN_PROFILE) && ds.getKey().equals(userId)) {
-                                                    startActivity(new Intent(getActivity(), TestMusicianDashboard.class));
+                                                    startActivity(new Intent(getActivity(), MusicianDashboard.class));
                                                     getActivity().finish();
                                                     break;
                                                 }

@@ -1,4 +1,6 @@
-package org.codefordenver.encorelink;
+package org.codefordenver.encorelink.EntityClasses;
+
+import org.codefordenver.encorelink.CreateOrganizerProfile;
 
 /**
  * Created by BenMorrisRains on 3/17/18.

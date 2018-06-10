@@ -1,5 +1,6 @@
 package org.codefordenver.encorelink;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.codefordenver.encorelink.MusicianTabs.Tab1;
 import org.codefordenver.encorelink.MusicianTabs.Tab2;
@@ -81,6 +85,14 @@ public class MusicianDashboard extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+
+        if (id == R.id.signoutMusicianProfile) {
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(this, "Signing out...", Toast.LENGTH_SHORT).show();
+            Intent goHome = new Intent(this, MainActivity.class);
+            startActivity(goHome);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

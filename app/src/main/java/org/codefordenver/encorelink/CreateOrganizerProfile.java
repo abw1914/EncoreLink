@@ -14,6 +14,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.codefordenver.encorelink.EntityClasses.OrganizerEntity;
+
 public class CreateOrganizerProfile extends AppCompatActivity {
 
     public static final String ORGANIZER_PROFILE = "organizer_profile";

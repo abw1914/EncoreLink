@@ -14,6 +14,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.codefordenver.encorelink.EntityClasses.EventEntity;
+
 public class OrganizerCreateEvent extends AppCompatActivity {
 
     private EditText eventTitle;
@@ -68,7 +70,7 @@ public class OrganizerCreateEvent extends AppCompatActivity {
 
 
 
-                databaseReference.child("Events").child(userId).child(eventTitle.getText().toString()).setValue(eventEntity);
+                databaseReference.child("Events").child(eventTitle.getText().toString()).setValue(eventEntity);
 
                 Toast.makeText(OrganizerCreateEvent.this, "Saving to Database", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(OrganizerCreateEvent.this, OrganizerDashboard.class);

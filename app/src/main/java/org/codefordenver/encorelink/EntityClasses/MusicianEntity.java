@@ -1,4 +1,4 @@
-package org.codefordenver.encorelink;
+package org.codefordenver.encorelink.EntityClasses;
 
 public class MusicianEntity {
 
