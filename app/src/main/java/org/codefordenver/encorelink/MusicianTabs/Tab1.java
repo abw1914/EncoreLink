@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,11 +31,12 @@ public class Tab1 extends Fragment {
     private String userId;
     private String city;
     private String endTime;
-    private String eventTitle;
+    public static String eventTitle;
     private String notes;
     private String startTime;
     private String streetAddress;
     private String zipcode;
+    public static String organizerId;
 
 
 
@@ -42,7 +44,7 @@ public class Tab1 extends Fragment {
 
 
 
-    private List<String> upcomingEventsList = new ArrayList<>();
+    public static List<String> upcomingEventsList = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -91,10 +93,16 @@ public class Tab1 extends Fragment {
                         streetAddress = ds.getValue().toString();
                     }
 
+                    if(ds.getKey().equals("uid")) {
+                        organizerId = ds.getValue().toString();
+                    }
+
                     if(ds.getKey().equals("zipcode")) {
                         zipcode = ds.getValue().toString();
                         upcomingEventsList.add(String.format("%s\n%s\n%s\n%s\n%s\n%s\n%s", eventTitle,
                                 startTime, endTime, streetAddress, city, zipcode, notes));
+
+
                     }
                 }
 

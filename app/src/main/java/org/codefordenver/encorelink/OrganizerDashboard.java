@@ -83,14 +83,7 @@ public class OrganizerDashboard extends AppCompatActivity {
         if (user != null) {
             userId = user.getUid();
         }
-        //setting DatabaseReference variable so we can search through the correct node in our DB
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().
-                getReference().child(CreateMusicianProfile.MUSICIAN_PROFILE);
 
-        //I need to figure out how to get the card view number into the data base.
-        DatabaseReference copyReference = FirebaseDatabase.getInstance().getReference().
-                child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId).child("pending_musicians");
-        copyPendingMusiciansToEachOrganizersNode(mDatabase, copyReference);
 
 
     }
@@ -201,27 +194,5 @@ public class OrganizerDashboard extends AppCompatActivity {
         }
     }
 
-    private void copyPendingMusiciansToEachOrganizersNode(final DatabaseReference fromPath, final DatabaseReference toPath) {
-        fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                toPath.setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
-                    @Override
-                    public void onComplete(DatabaseError firebaseError, DatabaseReference firebase) {
-                        if (firebaseError != null) {
-                            System.out.println("Copy failed");
-                        } else {
-                            System.out.println("Success");
 
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 }

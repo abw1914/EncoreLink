@@ -66,31 +66,31 @@ public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusi
 
 
 
-            Matcher m = Patterns.WEB_URL.matcher(OrganizerDashboardPendingTab.volunteerLink.get(position));
-            while (m.find()) {
-                talentURL = m.group();
-            }
-
-            TextView textView = cardView.findViewById(R.id.pending_musician_info);
-            TextView userURL = cardView.findViewById(R.id.musical_talent_link);
-            textView.setText(musicianInfo.get(position));
-            userURL.setText(talentURL);
-
-            userURL.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                        if (!talentURL.substring(0,4).equals("http")) {
-                            talentURL = "http://" + talentURL;
-                        }
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(talentURL));
-                        v.getContext().startActivity(intent);
-                    } catch (ActivityNotFoundException e){
-                        Toast.makeText(v.getContext(), "Bad URL!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+//            Matcher m = Patterns.WEB_URL.matcher(OrganizerDashboardPendingTab.volunteerLink.get(position));
+//            while (m.find()) {
+//                talentURL = m.group();
+//            }
+//
+//            TextView textView = cardView.findViewById(R.id.pending_musician_info);
+//            TextView userURL = cardView.findViewById(R.id.musical_talent_link);
+//            textView.setText(musicianInfo.get(position));
+//            userURL.setText(talentURL);
+//
+//            userURL.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    try {
+//                        if (!talentURL.substring(0,4).equals("http")) {
+//                            talentURL = "http://" + talentURL;
+//                        }
+//                        Intent intent = new Intent(Intent.ACTION_VIEW);
+//                        intent.setData(Uri.parse(talentURL));
+//                        v.getContext().startActivity(intent);
+//                    } catch (ActivityNotFoundException e){
+//                        Toast.makeText(v.getContext(), "Bad URL!", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            });
 
             approvalButton = cardView.findViewById(R.id.musician_approval);
 

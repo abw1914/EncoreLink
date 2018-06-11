@@ -10,6 +10,7 @@ public class MusicianEntity {
     private String zipcode;
     private String musicalTalent;
     private String videoLink;
+    public static String musicianUID;
 
     public String getFirstName() {
         return firstName;

@@ -67,11 +67,12 @@ public class OrganizerCreateEvent extends AppCompatActivity {
                 eventEntity.setStartTime(startTime.getText().toString());
                 eventEntity.setEndTime(endTime.getText().toString());
                 eventEntity.setNotes(notes.getText().toString());
+                eventEntity.setUid(userId);
 
 
 
+                databaseReference.child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId).child("Events").child(eventTitle.getText().toString()).setValue(eventEntity);
                 databaseReference.child("Events").child(eventTitle.getText().toString()).setValue(eventEntity);
-
                 Toast.makeText(OrganizerCreateEvent.this, "Saving to Database", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(OrganizerCreateEvent.this, OrganizerDashboard.class);
                 startActivity(intent);

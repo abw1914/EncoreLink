@@ -7,10 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import org.codefordenver.encorelink.MusicianTabs.Tab1;
 
 import java.util.List;
 
@@ -27,6 +31,8 @@ public class UpcomingEventsAdapter extends RecyclerView.Adapter<UpcomingEventsAd
         private String userId;
         private FirebaseAuth firebaseAuth;
         private FirebaseUser firebaseUser;
+        private Button requestToPlay;
+        private boolean requestedEvent;
 
 
         public ViewHolder(View itemView) {
@@ -36,10 +42,31 @@ public class UpcomingEventsAdapter extends RecyclerView.Adapter<UpcomingEventsAd
             cardView.setPadding(1,1,1,1);
         }
 
-        public void bind(int position) {
+        public void bind(final int position) {
+
+            databaseReference = FirebaseDatabase.getInstance().getReference();
+            firebaseAuth = FirebaseAuth.getInstance();
+            firebaseUser = firebaseAuth.getCurrentUser();
+            if(firebaseUser != null) {
+                userId = firebaseUser.getUid();
+            }
 
             TextView textView = cardView.findViewById(R.id.upcoming_events_for_card);
             textView.setText(upcomingEventsList.get(position));
+
+            requestToPlay = cardView.findViewById(R.id.request_to_play);
+
+            requestToPlay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    requestedEvent = true;
+                    databaseReference.child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(Tab1.organizerId).child("pending_musicians").child(Tab1.eventTitle)
+                    .setValue(firebaseUser.getEmail() + "\nWould like to play your event, " + Tab1.eventTitle);
+                    Toast.makeText(v.getContext(), "Request Pending", Toast.LENGTH_SHORT).show();
+
+                    databaseReference.child(CreateMusicianProfile.MUSICIAN_PROFILE).child(userId).child("pending_events").setValue(upcomingEventsList.get(position));
+                }
+            });
 
         }
     }
@@ -49,11 +76,11 @@ public class UpcomingEventsAdapter extends RecyclerView.Adapter<UpcomingEventsAd
         this.upcomingEventsList = upcomingEventsList;
     }
     @Override
-    public UpcomingEventsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView cv = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.upcoming_events_card, parent, false);
 
 
-        return new UpcomingEventsAdapter.ViewHolder(cv);
+        return new ViewHolder(cv);
     }
 
     @Override
@@ -63,6 +90,6 @@ public class UpcomingEventsAdapter extends RecyclerView.Adapter<UpcomingEventsAd
 
     @Override
     public int getItemCount() {
-        return 0;
+        return upcomingEventsList.size();
     }
 }

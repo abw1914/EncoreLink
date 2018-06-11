@@ -10,6 +10,15 @@ public class EventEntity {
     private String endTime;
     private String notes;
     private String addEvent;
+    private String uid;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public void setEventTitle(String eventTitle) {
         this.eventTitle = eventTitle;

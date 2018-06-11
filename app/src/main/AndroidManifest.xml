@@ -26,12 +26,11 @@
         <activity
             android:name=".EditOrganizerProfile"
             android:theme="@style/AppTheme.SlidrActivityTheme" />
-        <activity android:name=".TestMusicianDashboard" />
         <activity android:name=".OrganizerCreateEvent" />
         <activity
             android:name=".MusicianDashboard"
             android:label="@string/title_activity_musician_dashboard"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

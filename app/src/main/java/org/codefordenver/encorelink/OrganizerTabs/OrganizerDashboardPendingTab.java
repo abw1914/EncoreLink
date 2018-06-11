@@ -78,57 +78,60 @@ public class OrganizerDashboardPendingTab extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
+                volunteerDetail.add(dataSnapshot.getKey() + dataSnapshot.getValue());
                 //iterate through each dataSnapshot inside mDatabase
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-
-                    //if we get a first name, add it to temp string
-                    if (dataSnapshot1.getKey().equals("firstName")) {
-                        tempFirst = Objects.requireNonNull(dataSnapshot1.getValue(String.class));
-                    }
-
-                    if (dataSnapshot1.getKey().equals("lastName")) {
-                        tempLastName = Objects.requireNonNull(dataSnapshot1.getValue(String.class));
-                    }
-
-                    //if we get a musical talent, save it also into a temp string
-                    if (dataSnapshot1.getKey().equals("musicalTalent")) {
-                        tempTalent = Objects.requireNonNull("Talent: " + dataSnapshot1.getValue(String.class));
-
-                        //in order to display all the string data together in one card,
-                        //we have to add each temp string to the array list.
-
-                            volunteerSmallView.add(tempFirst + " " + tempLastName + tempTalent);
-
-                    }
-
-                    if (dataSnapshot1.getKey().equals("phoneNumber")) {
-                        tempPhoneNumber = Objects.requireNonNull( dataSnapshot1.getValue(String.class));
-                    }
-
-                    if (dataSnapshot1.getKey().equals("streetAddress")) {
-                        tempStreetAddress = Objects.requireNonNull(dataSnapshot1.getValue(String.class));
-                    }
-
-                    if (dataSnapshot1.getKey().equals("city")) {
-                        tempCity = Objects.requireNonNull(dataSnapshot1.getValue(String.class));
-                    }
-
-                    if (dataSnapshot1.getKey().equals("zipcode")) {
-                        tempZipcode = Objects.requireNonNull("Zipcode: " + dataSnapshot1.getValue(String.class));
-                    }
-
-                    if (dataSnapshot1.getKey().equals("videoLink")) {
-                        tempVideoLink = Objects.requireNonNull(dataSnapshot1.getValue(String.class));
-                        volunteerLink.add(tempVideoLink);
-
-                        volunteerDetail.add(tempFirst + " " + tempLastName +
-                                "\n" + tempPhoneNumber +
-                                "\n" + tempStreetAddress +
-                                "\n" + tempCity + ", " + tempZipcode + "\n" + tempTalent);
-
-                    }
-
-                }
+//                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+//
+//                    volunteerDetail.add(dataSnapshot1.getValue().toString());
+//
+////                    //if we get a first name, add it to temp string
+////                    if (dataSnapshot1.getKey().equals("firstName")) {
+////                        tempFirst = Objects.requireNonNull(dataSnapshot1.getValue(String.class));
+////                    }
+////
+////                    if (dataSnapshot1.getKey().equals("lastName")) {
+////                        tempLastName = Objects.requireNonNull(dataSnapshot1.getValue(String.class));
+////                    }
+////
+////                    //if we get a musical talent, save it also into a temp string
+////                    if (dataSnapshot1.getKey().equals("musicalTalent")) {
+////                        tempTalent = Objects.requireNonNull("Talent: " + dataSnapshot1.getValue(String.class));
+////
+////                        //in order to display all the string data together in one card,
+////                        //we have to add each temp string to the array list.
+////
+////                            volunteerSmallView.add(tempFirst + " " + tempLastName + tempTalent);
+////
+////                    }
+////
+////                    if (dataSnapshot1.getKey().equals("phoneNumber")) {
+////                        tempPhoneNumber = Objects.requireNonNull( dataSnapshot1.getValue(String.class));
+////                    }
+////
+////                    if (dataSnapshot1.getKey().equals("streetAddress")) {
+////                        tempStreetAddress = Objects.requireNonNull(dataSnapshot1.getValue(String.class));
+////                    }
+////
+////                    if (dataSnapshot1.getKey().equals("city")) {
+////                        tempCity = Objects.requireNonNull(dataSnapshot1.getValue(String.class));
+////                    }
+////
+////                    if (dataSnapshot1.getKey().equals("zipcode")) {
+////                        tempZipcode = Objects.requireNonNull("Zipcode: " + dataSnapshot1.getValue(String.class));
+////                    }
+////
+////                    if (dataSnapshot1.getKey().equals("videoLink")) {
+////                        tempVideoLink = Objects.requireNonNull(dataSnapshot1.getValue(String.class));
+////                        volunteerLink.add(tempVideoLink);
+////
+////                        volunteerDetail.add(tempFirst + " " + tempLastName +
+////                                "\n" + tempPhoneNumber +
+////                                "\n" + tempStreetAddress +
+////                                "\n" + tempCity + ", " + tempZipcode + "\n" + tempTalent);
+////
+////                    }
+//
+//                }
                 //set adapater equal to our adapater object
                 musicianInfoRecycler.setAdapter(adapter);
                 adapter.notifyDataSetChanged();

@@ -42,6 +42,7 @@ public class CreateMusicianProfile extends AppCompatActivity {
             userId = user.getUid();
         }
 
+        MusicianEntity.musicianUID = userId;
         firstName = findViewById(R.id.musician_first_name);
         lastName = findViewById(R.id.musician_last_name);
         phoneNumber = findViewById(R.id.musician_phonenumber);
@@ -79,7 +80,7 @@ public class CreateMusicianProfile extends AppCompatActivity {
                     databaseReference.child(MUSICIAN_PROFILE).child(userId).setValue(musicianEntity);
 
                     Toast.makeText(CreateMusicianProfile.this, "Saving profile information.", Toast.LENGTH_SHORT).show();
-                    Intent musicianDashboard = new Intent(CreateMusicianProfile.this, TestMusicianDashboard.class);
+                    Intent musicianDashboard = new Intent(CreateMusicianProfile.this, MusicianDashboard.class);
                     startActivity(musicianDashboard);
                     finish();
 

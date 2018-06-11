@@ -30,7 +30,7 @@ public class InProcessMusicianAdapter extends RecyclerView.Adapter<InProcessMusi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        CardView cv = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.card_musician_info, parent, false);
+        CardView cv = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.card_musician_in_progress, parent, false);
 
 
         return new InProcessMusicianAdapter.ViewHolder(cv);
