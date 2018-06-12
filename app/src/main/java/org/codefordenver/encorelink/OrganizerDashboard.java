@@ -19,15 +19,9 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import org.codefordenver.encorelink.OrganizerTabs.OrganizerDashboardInProgressTab;
 import org.codefordenver.encorelink.OrganizerTabs.OrganizerDashboardPendingTab;
-import org.codefordenver.encorelink.OrganizerTabs.OrganizerDashboardTab2;
 
 
 /**
@@ -98,6 +92,7 @@ public class OrganizerDashboard extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -178,19 +173,16 @@ public class OrganizerDashboard extends AppCompatActivity {
                     OrganizerDashboardPendingTab tab1 = new OrganizerDashboardPendingTab();
                     return tab1;
                 case 1:
-                    OrganizerDashboardTab2 tab2 = new OrganizerDashboardTab2();
+                    OrganizerDashboardInProgressTab tab2 = new OrganizerDashboardInProgressTab();
                     return tab2;
-                case 2:
-                    OrganizerDashboardInProgressTab tab3 = new OrganizerDashboardInProgressTab();
-                    return tab3;
             }
             return null;
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            // Show 2 total pages.
+            return 2;
         }
     }
 

@@ -40,17 +40,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/pending" />
 
-            <android.support.design.widget.TabItem
-                android:id="@+id/tabItem2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/upcoming"/>
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tabItem3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/inprocess" />
+                android:text="Approved" />
 
         </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>
