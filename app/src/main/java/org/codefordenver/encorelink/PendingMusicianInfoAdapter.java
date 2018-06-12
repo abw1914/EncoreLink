@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.codefordenver.encorelink.MusicianTabs.Tab1;
 import org.codefordenver.encorelink.OrganizerTabs.OrganizerDashboardPendingTab;
 
 import java.util.ArrayList;
@@ -71,9 +72,9 @@ public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusi
 //                talentURL = m.group();
 //            }
 //
-//            TextView textView = cardView.findViewById(R.id.pending_musician_info);
+            TextView textView = cardView.findViewById(R.id.pending_musician_info);
 //            TextView userURL = cardView.findViewById(R.id.musical_talent_link);
-//            textView.setText(musicianInfo.get(position));
+            textView.setText(musicianInfo.get(position));
 //            userURL.setText(talentURL);
 //
 //            userURL.setOnClickListener(new View.OnClickListener() {
@@ -100,10 +101,11 @@ public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusi
                     databaseReference.child("approved_musicians").child(userId).child(String.valueOf(position)).
                             setValue(OrganizerDashboardPendingTab.volunteerDetail.get(position));
                     Toast.makeText(v.getContext(), "Musician approved!", Toast.LENGTH_SHORT - 3).show();
-                    Toast.makeText(v.getContext(), "Moving musician to In Progress...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), "Moving musician to Approved...", Toast.LENGTH_SHORT).show();
                     approvedMusicians.add(OrganizerDashboardPendingTab.volunteerDetail.get(position));
-
-
+                    databaseReference.child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId).child("pending_musicians").child(Tab1.eventTitle).removeValue();
+                    removeAt(getLayoutPosition());
+                    notifyItemRemoved(position);
 
                 }
             });
@@ -112,17 +114,14 @@ public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusi
             rejectionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    try {
-                      final DatabaseReference rejectReference = FirebaseDatabase.getInstance().getReference().child("pending_musicians")
-                                .child(userId);
-                        rejectReference.removeValue();
+
+                        databaseReference.child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId).child("pending_musicians").child(Tab1.eventTitle).removeValue();
                         removeAt(getLayoutPosition());
                         notifyItemRemoved(getLayoutPosition());
                         Toast.makeText(v.getContext(), "Removing " + OrganizerDashboardPendingTab.volunteerSmallView.get(getAdapterPosition()),
                                 Toast.LENGTH_SHORT).show();
-                    }catch (Exception e) {
-                        e.printStackTrace();
-                    }
+
+
                 }
             });
 
