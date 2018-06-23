@@ -25,6 +25,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.codefordenver.encorelink.EntityClasses.MusicianEntity;
 
 
 /**
@@ -244,6 +247,8 @@ public class LoginFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+
 
         //if user is already logged in, go to the appropriate dashboard.
         if(mAuth.getCurrentUser() != null) {

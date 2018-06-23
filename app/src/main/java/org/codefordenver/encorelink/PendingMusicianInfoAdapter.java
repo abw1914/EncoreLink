@@ -44,6 +44,7 @@ public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusi
         private String musicianId;
 
 
+
         public ViewHolder(View view) {
             super(view);
             cardView = (CardView) view;
@@ -98,12 +99,11 @@ public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusi
             approvalButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    databaseReference.child("approved_musicians").child(userId).child(String.valueOf(position)).
-                            setValue(OrganizerDashboardPendingTab.volunteerDetail.get(position));
+                    databaseReference.child("approved_musicians").child(userId).child(String.valueOf(position)).setValue(OrganizerDashboardPendingTab.volunteerDetail.get(position));
                     Toast.makeText(v.getContext(), "Musician approved!", Toast.LENGTH_SHORT - 3).show();
                     Toast.makeText(v.getContext(), "Moving musician to Approved...", Toast.LENGTH_SHORT).show();
                     approvedMusicians.add(OrganizerDashboardPendingTab.volunteerDetail.get(position));
-                    databaseReference.child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId).child("pending_musicians").child(Tab1.eventTitle).removeValue();
+                    databaseReference.child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId).child("pending_musicians").child(String.valueOf(UpcomingEventsAdapter.pendingMusicianIndex)).removeValue();
                     removeAt(getLayoutPosition());
                     notifyItemRemoved(position);
 
@@ -114,12 +114,13 @@ public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusi
             rejectionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                        databaseReference.child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId).child("pending_musicians").child(Tab1.eventTitle).removeValue();
+                    Toast.makeText(v.getContext(), "Removing..." ,
+                            Toast.LENGTH_SHORT).show();
+                        databaseReference.child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId).child("pending_musicians").child(String.valueOf(UpcomingEventsAdapter.pendingMusicianIndex))
+                        .removeValue();
                         removeAt(getLayoutPosition());
-                        notifyItemRemoved(getLayoutPosition());
-                        Toast.makeText(v.getContext(), "Removing " + OrganizerDashboardPendingTab.volunteerSmallView.get(getAdapterPosition()),
-                                Toast.LENGTH_SHORT).show();
+                        notifyItemRemoved(position);
+
 
 
                 }

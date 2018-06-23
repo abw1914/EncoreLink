@@ -75,4 +75,10 @@ public class MusicianEntity {
     public void setVideoLink(String videoLink) {
         this.videoLink = videoLink;
     }
+
+
+    @Override
+    public String toString() {
+        return String.format("\n%s %s\n%s\n%s\n%s", firstName, lastName, musicalTalent, videoLink, phoneNumber);
+    }
 }
