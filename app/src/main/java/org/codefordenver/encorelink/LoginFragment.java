@@ -68,8 +68,6 @@ public class LoginFragment extends Fragment {
     private String userId;
 
     public static OrganizerEntity organizerInfo;
-    private FirebaseAuth firebaseAuth;
-    private FirebaseUser firebaseUser;
 
     public static MusicianEntity musician;
 
@@ -316,8 +314,6 @@ public class LoginFragment extends Fragment {
     public void getOrganizerInfo() {
 
         organizerInfo = new OrganizerEntity();
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference().child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -366,8 +362,6 @@ public class LoginFragment extends Fragment {
     public void getMusicianInfo() {
 
         musician = new MusicianEntity();
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference().child(CreateMusicianProfile.MUSICIAN_PROFILE).child(userId);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
