@@ -28,7 +28,7 @@ public class UpcomingEventsAdapter extends RecyclerView.Adapter<UpcomingEventsAd
 
     private List<String> upcomingEventsList;
     public static int pendingMusicianIndex;
-    public static MusicianEntity musician;
+
 
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -39,7 +39,7 @@ public class UpcomingEventsAdapter extends RecyclerView.Adapter<UpcomingEventsAd
         private FirebaseAuth firebaseAuth;
         private FirebaseUser firebaseUser;
         private Button requestToPlay;
-        private boolean requestedEvent;
+
 
 
 
@@ -48,12 +48,11 @@ public class UpcomingEventsAdapter extends RecyclerView.Adapter<UpcomingEventsAd
             cardView = (CardView) itemView;
             cardView.setCardElevation(2);
             cardView.setPadding(1,1,1,1);
-            getMusicianInfo();
+
         }
 
         public void bind(final int position) {
             pendingMusicianIndex = position;
-            getMusicianInfo();
             checkPosition();
             databaseReference = FirebaseDatabase.getInstance().getReference();
             firebaseAuth = FirebaseAuth.getInstance();
@@ -70,9 +69,9 @@ public class UpcomingEventsAdapter extends RecyclerView.Adapter<UpcomingEventsAd
             requestToPlay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    requestedEvent = true;
+
                     databaseReference.child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(Tab1.organizerId).child("pending_musicians").child(String.valueOf(pendingMusicianIndex))
-                    .setValue(musician.toString());
+                    .setValue(LoginFragment.musician.toString());
                     Toast.makeText(v.getContext(), "Request Pending", Toast.LENGTH_SHORT).show();
 
                     databaseReference.child(CreateMusicianProfile.MUSICIAN_PROFILE).child(userId).child("pending_events").setValue(upcomingEventsList.get(position));
@@ -107,45 +106,7 @@ public class UpcomingEventsAdapter extends RecyclerView.Adapter<UpcomingEventsAd
             });
         }
 
-        public void getMusicianInfo() {
 
-            musician = new MusicianEntity();
-            firebaseAuth = FirebaseAuth.getInstance();
-            firebaseUser = firebaseAuth.getCurrentUser();
-            if(firebaseUser != null) {
-                userId = firebaseUser.getUid();
-            }
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference ref = database.getReference().child(CreateMusicianProfile.MUSICIAN_PROFILE).child(userId);
-            ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                        if(ds.getKey().equals("firstName")) {
-                            musician.setFirstName(ds.getValue(String.class));
-                        }
-                        if(ds.getKey().equals("lastName")) {
-                            musician.setLastName(ds.getValue(String.class));
-                        }
-                        if(ds.getKey().equals("musicalTalent")) {
-                            musician.setMusicalTalent(ds.getValue(String.class));
-                        }
-                        if(ds.getKey().equals("videoLink")) {
-                            musician.setVideoLink(ds.getValue(String.class));
-                        }
-                        if(ds.getKey().equals("phoneNumber")) {
-                            musician.setPhoneNumber(ds.getValue(String.class));
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-        }
     }
 
 

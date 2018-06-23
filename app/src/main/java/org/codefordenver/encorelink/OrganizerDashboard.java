@@ -104,7 +104,6 @@ public class OrganizerDashboard extends AppCompatActivity {
         }
         //noinspection SimplifiableIfStatement
         if (id == R.id.editProfile) {
-
             Intent organzierEditProfile = new Intent(OrganizerDashboard.this, EditOrganizerProfile.class);
             startActivity(organzierEditProfile);
 

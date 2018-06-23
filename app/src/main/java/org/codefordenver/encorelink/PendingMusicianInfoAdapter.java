@@ -15,9 +15,14 @@ import android.content.Intent;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import org.codefordenver.encorelink.EntityClasses.MusicianEntity;
+import org.codefordenver.encorelink.EntityClasses.OrganizerEntity;
 import org.codefordenver.encorelink.MusicianTabs.Tab1;
 import org.codefordenver.encorelink.OrganizerTabs.OrganizerDashboardPendingTab;
 
@@ -27,7 +32,6 @@ import java.util.regex.Matcher;
 public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusicianInfoAdapter.ViewHolder> {
 
     private ArrayList<String> musicianInfo;
-    private String talentURL;
     public static ArrayList<String> approvedMusicians = new ArrayList<>();
     public static String musicianPosition;
 
@@ -48,15 +52,11 @@ public class PendingMusicianInfoAdapter extends RecyclerView.Adapter<PendingMusi
         public ViewHolder(View view) {
             super(view);
             cardView = (CardView) view;
-
-
             cardView.setCardElevation(2);
             cardView.setPadding(1,1,1,1);
-
         }
 
         void bind(final int position) {
-
 
             databaseReference = FirebaseDatabase.getInstance().getReference();
 

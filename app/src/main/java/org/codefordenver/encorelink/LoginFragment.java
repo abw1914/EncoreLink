@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.codefordenver.encorelink.EntityClasses.MusicianEntity;
+import org.codefordenver.encorelink.EntityClasses.OrganizerEntity;
 
 
 /**
@@ -65,6 +66,12 @@ public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth;
     private DatabaseReference mDataBase;
     private String userId;
+
+    public static OrganizerEntity organizerInfo;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+
+    public static MusicianEntity musician;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -161,12 +168,14 @@ public class LoginFragment extends Fragment {
                                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                                 if (dataSnapshot.getKey().equals(CreateMusicianProfile.MUSICIAN_PROFILE) && ds.getKey().equals(userId)) {
+                                                    getMusicianInfo();
                                                     startActivity(new Intent(getActivity(), MusicianDashboard.class));
                                                     getActivity().finish();
                                                     break;
                                                 }
 
                                                 if (dataSnapshot.getKey().equals(CreateOrganizerProfile.ORGANIZER_PROFILE) && ds.getKey().equals(userId)) {
+                                                    getOrganizerInfo();
                                                     startActivity(new Intent(getActivity(), OrganizerDashboard.class));
                                                     getActivity().finish();
                                                     break;
@@ -263,12 +272,14 @@ public class LoginFragment extends Fragment {
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     for(DataSnapshot ds : dataSnapshot.getChildren()) {
                         if(dataSnapshot.getKey().equals(CreateMusicianProfile.MUSICIAN_PROFILE) && ds.getKey().equals(userId)) {
+                            getMusicianInfo();
                             startActivity(new Intent(getActivity(), MusicianDashboard.class));
                             getActivity().finish();
                             break;
                         }
 
                         if(dataSnapshot.getKey().equals(CreateOrganizerProfile.ORGANIZER_PROFILE) && ds.getKey().equals(userId)) {
+                            getOrganizerInfo();
                             startActivity(new Intent(getActivity(), OrganizerDashboard.class));
                             getActivity().finish();
                             break;
@@ -299,6 +310,93 @@ public class LoginFragment extends Fragment {
             });
 
         }
+
+    }
+
+    public void getOrganizerInfo() {
+
+        organizerInfo = new OrganizerEntity();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference().child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(userId);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    if(ds.getKey().equals("contactName")) {
+                        organizerInfo.setContactName(ds.getValue(String.class));
+                    }
+                    if(ds.getKey().equals("contactJobTitle")) {
+                        organizerInfo.setContactJobTitle(ds.getValue(String.class));
+                    }
+                    if(ds.getKey().equals("city")) {
+                        organizerInfo.setCity(ds.getValue(String.class));
+                    }
+                    if(ds.getKey().equals("state")) {
+                        organizerInfo.setState(ds.getValue(String.class));
+                    }
+                    if(ds.getKey().equals("emailAddress")) {
+                        organizerInfo.setEmailAddress(ds.getValue(String.class));
+                    }
+                    if(ds.getKey().equals("organizationName")) {
+                        organizerInfo.setOrganizationName(ds.getValue(String.class));
+                    }
+                    if(ds.getKey().equals("streetAddress")) {
+                        organizerInfo.setStreetAddress(ds.getValue(String.class));
+                    }
+                    if(ds.getKey().equals("phoneNumber")) {
+                        organizerInfo.setPhoneNumber(ds.getValue(String.class));
+                    }
+
+                    if(ds.getKey().equals("zipcode")) {
+                        organizerInfo.setZipcode(ds.getValue(String.class));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public void getMusicianInfo() {
+
+        musician = new MusicianEntity();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference().child(CreateMusicianProfile.MUSICIAN_PROFILE).child(userId);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    if(ds.getKey().equals("firstName")) {
+                        musician.setFirstName(ds.getValue(String.class));
+                    }
+                    if(ds.getKey().equals("lastName")) {
+                        musician.setLastName(ds.getValue(String.class));
+                    }
+                    if(ds.getKey().equals("musicalTalent")) {
+                        musician.setMusicalTalent(ds.getValue(String.class));
+                    }
+                    if(ds.getKey().equals("videoLink")) {
+                        musician.setVideoLink(ds.getValue(String.class));
+                    }
+                    if(ds.getKey().equals("phoneNumber")) {
+                        musician.setPhoneNumber(ds.getValue(String.class));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 }

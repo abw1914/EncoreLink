@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class EditMusicianProfile extends AppCompatActivity {
 
     ListView editMusicianrofileListView;
-    private String userId;
     private ArrayList<String> userInfo = new ArrayList<>();
 
     @Override
@@ -20,7 +19,7 @@ public class EditMusicianProfile extends AppCompatActivity {
 
         editMusicianrofileListView = findViewById(R.id.edit_musician_profile);
 
-        userInfo.add(UpcomingEventsAdapter.musician.toString());
+        userInfo.add(LoginFragment.musician.toString());
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, userInfo);
        editMusicianrofileListView.setAdapter(arrayAdapter);
 

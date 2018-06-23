@@ -103,15 +103,8 @@ public class OrganizerEntity {
 
     @Override
     public String toString() {
-        return
-                "Organization Name: " + organizationName + "\n" +
-                "Street Address: " + streetAddress + '\n' +
-                "City: " + city + '\n' +
-                "State: " + state + '\n' +
-                "Zipcode:" + zipcode + '\n' +
-                "Contact Name: " + contactName + '\n' +
-                "Contact Job Title: " + contactJobTitle + '\n' +
-                "Phone Number: " + phoneNumber + '\n' +
-                "Email Address: " + emailAddress + '\n';
+        return String.format("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s", contactName, contactJobTitle,
+                organizationName, phoneNumber, emailAddress, city, state, streetAddress, zipcode);
     }
+
 }
