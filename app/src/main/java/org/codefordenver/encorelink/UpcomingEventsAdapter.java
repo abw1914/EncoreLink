@@ -48,6 +48,7 @@ public class UpcomingEventsAdapter extends RecyclerView.Adapter<UpcomingEventsAd
             cardView = (CardView) itemView;
             cardView.setCardElevation(2);
             cardView.setPadding(1,1,1,1);
+            getMusicianInfo();
         }
 
         public void bind(final int position) {

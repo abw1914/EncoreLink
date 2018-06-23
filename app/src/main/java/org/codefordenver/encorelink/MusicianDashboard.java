@@ -83,8 +83,9 @@ public class MusicianDashboard extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.edit_musician_profile) {
+            Intent editProfile = new Intent(this, EditMusicianProfile.class);
+            startActivity(editProfile);
         }
 
         if (id == R.id.signoutMusicianProfile) {
