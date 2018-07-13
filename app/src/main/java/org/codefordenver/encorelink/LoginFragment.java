@@ -68,7 +68,6 @@ public class LoginFragment extends Fragment {
     private String userId;
 
     public static OrganizerEntity organizerInfo;
-
     public static MusicianEntity musician;
 
     public LoginFragment() {

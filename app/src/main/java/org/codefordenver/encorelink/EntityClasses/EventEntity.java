@@ -83,4 +83,10 @@ public class EventEntity {
     public String getAddEvent() {
         return addEvent;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s\n%s\n%s\n%s\n%s\n%s\n%s", getEventTitle(),
+            getStartTime(), getEndTime(), getStreetAddress(), getCity(), getZipcode(), getNotes());
+    }
 }

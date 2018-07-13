@@ -2,6 +2,7 @@ package org.codefordenver.encorelink;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.EventLog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,25 +12,22 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.codefordenver.encorelink.EntityClasses.MusicianEntity;
+import org.codefordenver.encorelink.EntityClasses.EventEntity;
 import org.codefordenver.encorelink.MusicianTabs.Tab1;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UpcomingEventsAdapter extends RecyclerView.Adapter<UpcomingEventsAdapter.ViewHolder> {
 
     private List<String> upcomingEventsList;
     public static int pendingMusicianIndex;
-
-
+    private Tab1 tab1 = new Tab1();
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -69,8 +67,7 @@ public class UpcomingEventsAdapter extends RecyclerView.Adapter<UpcomingEventsAd
             requestToPlay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    databaseReference.child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(Tab1.organizerId).child("pending_musicians").child(String.valueOf(pendingMusicianIndex))
+                    databaseReference.child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(Tab1.organizerId).child("pending_musicians").child(tab1.eventTitleList.get(position)).child(String.valueOf(pendingMusicianIndex))
                     .setValue(LoginFragment.musician.toString());
                     Toast.makeText(v.getContext(), "Request Pending", Toast.LENGTH_SHORT).show();
 
@@ -81,11 +78,6 @@ public class UpcomingEventsAdapter extends RecyclerView.Adapter<UpcomingEventsAd
         }
 
         public void checkPosition() {
-            firebaseAuth = FirebaseAuth.getInstance();
-            firebaseUser = firebaseAuth.getCurrentUser();
-            if(firebaseUser != null) {
-                userId = firebaseUser.getUid();
-            }
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference ref = database.getReference().child(CreateOrganizerProfile.ORGANIZER_PROFILE).child(Tab1.organizerId).child("pending_musicians");
 
@@ -106,7 +98,6 @@ public class UpcomingEventsAdapter extends RecyclerView.Adapter<UpcomingEventsAd
             });
         }
 
-
     }
 
 
@@ -124,6 +115,7 @@ public class UpcomingEventsAdapter extends RecyclerView.Adapter<UpcomingEventsAd
     @Override
     public void onBindViewHolder(UpcomingEventsAdapter.ViewHolder holder, int position) {
         holder.bind(position);
+
     }
 
     @Override

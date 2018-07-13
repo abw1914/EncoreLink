@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.codefordenver.encorelink.CreateOrganizerProfile;
+import org.codefordenver.encorelink.EntityClasses.EventEntity;
 import org.codefordenver.encorelink.R;
 import org.codefordenver.encorelink.UpcomingEventsAdapter;
 
@@ -28,36 +29,26 @@ import java.util.Objects;
 
 public class Tab1 extends Fragment {
 
-    private String userId;
-    private String city;
-    private String endTime;
-    public static String eventTitle;
-    private String notes;
-    private String startTime;
-    private String streetAddress;
-    private String zipcode;
+
+    private String eventTitle;
     public static String organizerId;
+    private EventEntity eventInfo;
+    private FirebaseAuth firebaseAuth;
 
 
+    public static List<String> upcomingEventsList;
+    public static List<String> eventTitleList;
 
-
-
-
-
-    public static List<String> upcomingEventsList = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-
+        upcomingEventsList = new ArrayList<>();
+        eventTitleList = new ArrayList<>();
+        eventInfo = new EventEntity();
         final RecyclerView upcomingEventsRecyler = (RecyclerView) inflater.inflate(R.layout.upcoming_events, container, false);
 
-        //Checking to make sure user is logged in and is not null
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        if (user != null) {
-            userId = user.getUid();
-        }
+
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("Events");
 
@@ -68,43 +59,45 @@ public class Tab1 extends Fragment {
         mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                    if(ds.getKey().equals("city")) {
-                        city = Objects.requireNonNull(ds.getValue()).toString();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    if (ds.getKey().equals("city")) {
+                        eventInfo.setCity(Objects.requireNonNull(ds.getValue()).toString());
                     }
 
-                    if(ds.getKey().equals("endTime")) {
-                        endTime = ds.getValue().toString();
+                    if (ds.getKey().equals("endTime")) {
+                        eventInfo.setEndTime(ds.getValue().toString());
                     }
 
                     if (ds.getKey().equals("eventTitle")) {
-                        eventTitle = ds.getValue().toString();
+                        eventInfo.setEventTitle(ds.getValue().toString());
+                        eventTitleList.add(ds.getValue().toString());
+
                     }
 
-                    if(ds.getKey().equals("notes")) {
-                        notes = ds.getValue().toString();
+                    if (ds.getKey().equals("notes")) {
+                        eventInfo.setNotes(ds.getValue().toString());
                     }
 
-                    if(ds.getKey().equals("startTime")) {
-                        startTime = ds.getValue().toString();
+                    if (ds.getKey().equals("startTime")) {
+                        eventInfo.setStartTime(ds.getValue().toString());
                     }
 
-                    if(ds.getKey().equals("streetAddress")) {
-                        streetAddress = ds.getValue().toString();
+                    if (ds.getKey().equals("streetAddress")) {
+                        eventInfo.setStreetAddress(ds.getValue().toString());
                     }
 
-                    if(ds.getKey().equals("uid")) {
-                        organizerId = ds.getValue().toString();
+                    if (ds.getKey().equals("uid")) {
+                        eventInfo.setUid(ds.getValue().toString());
+                        organizerId = eventInfo.getUid();
                     }
 
-                    if(ds.getKey().equals("zipcode")) {
-                        zipcode = ds.getValue().toString();
-                        upcomingEventsList.add(String.format("%s\n%s\n%s\n%s\n%s\n%s\n%s", eventTitle,
-                                startTime, endTime, streetAddress, city, zipcode, notes));
-
+                    if (ds.getKey().equals("zipcode")) {
+                        eventInfo.setZipcode(ds.getValue().toString());
 
                     }
                 }
+                upcomingEventsList.add(eventInfo.toString());
+
 
                 upcomingEventsRecyler.setAdapter(upcomingEventsAdapter);
                 upcomingEventsAdapter.notifyDataSetChanged();
@@ -131,10 +124,22 @@ public class Tab1 extends Fragment {
             }
         });
 
+
+        setEventTitle();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         upcomingEventsRecyler.setLayoutManager(linearLayoutManager);
 
         return upcomingEventsRecyler;
 
     }
+
+    public String setEventTitle() {
+        eventTitle = eventInfo.getEventTitle();
+        return eventTitle;
+    }
+
+    public String getEventTitle() {
+        return eventTitle;
+    }
+
 }

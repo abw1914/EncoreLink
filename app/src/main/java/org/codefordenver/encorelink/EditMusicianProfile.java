@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.r0adkll.slidr.Slidr;
+
 import java.util.ArrayList;
 
 public class EditMusicianProfile extends AppCompatActivity {
@@ -14,6 +16,7 @@ public class EditMusicianProfile extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Slidr.attach(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_musician_profile);
 

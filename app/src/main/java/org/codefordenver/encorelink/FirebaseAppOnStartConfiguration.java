@@ -9,9 +9,6 @@ public class FirebaseAppOnStartConfiguration extends android.app.Application {
 
     private FirebaseAuth firebaseAuth;
     public static String userId;
-    private DatabaseReference databaseReference;
-
-
 
     /**
      * This class extends Application and is required in order to enable Firebase persistence
@@ -21,20 +18,20 @@ public class FirebaseAppOnStartConfiguration extends android.app.Application {
      * be able to still view information that has been cached on their device if there is any
      * disconnects from either data or wifi.
      */
+
     @Override
     public void onCreate() {
         super.onCreate();
-
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        checkIfUserExists();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+    }
 
+    public void checkIfUserExists() {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null) {
             userId = user.getUid();
         }
-
-
     }
 }
